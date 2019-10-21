@@ -6,8 +6,10 @@ trim(Sysex) ->
     <<16#F0,"B0X@",Payload:PayloadSize/bytes,16#F7>> = Sysex,
     Payload.
 
+
 untrim(Payload) ->
     <<16#F0, "B0X@", Payload/bytes, 16#F7>>.
+
 
 unscramble(<<>>) -> <<>>;
 
