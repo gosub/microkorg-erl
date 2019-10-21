@@ -1,5 +1,7 @@
 -module(sysex).
--export([trim/1, untrim/1, unscramble/1]).
+-export([trim/1, untrim/1, scramble/1, unscramble/1,
+	encode/1, decode/1, encode_file/2, decode_file/1]).
+
 
 trim(Sysex) ->
     PayloadSize = byte_size(Sysex)-6,
