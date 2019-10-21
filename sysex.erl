@@ -73,3 +73,12 @@ scramble(<<X1:1,B1:7,X2:1,B2:7>>) ->
 scramble(<<X1:1,B1:7>>) ->
     <<0:7,X1:1,B1:8>>.
 
+
+decode(SysexData) ->
+    unscramble(trim(SysexData)).
+
+
+decode_file(SysexFile) ->
+    {ok, SysexData} = file:read_file(SysexFile),
+    decode(SysexData).
+
