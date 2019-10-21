@@ -82,3 +82,10 @@ decode_file(SysexFile) ->
     {ok, SysexData} = file:read_file(SysexFile),
     decode(SysexData).
 
+
+encode(Data) ->
+    untrim(scramble(Data)).
+
+
+encode_file(SysexFile, Data) ->
+    file:write_file(SysexFile, encode(Data)).
