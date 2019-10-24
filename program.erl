@@ -116,3 +116,72 @@ voices_to_list(double, <<Timbre1:108/bytes, Timbre2:108/bytes>>) ->
 voices_to_list(vocoder, <<Vocoder:104/bytes, _:112/bytes>>) ->
     [vocoder_to_map(Vocoder)].
 
+timbre_to_map(<<MidiCh/signed-integer,
+		AssignMode:2, EG2Reset:1, EG1Reset:1, TriggerMode:1,
+	      _:1, KeyPriority:2, UnisonDetune:8, Pitch:4/bytes, Osc1:5/bytes,
+	      Osc2:3/bytes, 0:1, PortamentoTime:7, Mixer:3/bytes,
+	      Filter:6/bytes, Amp:5/bytes, EG1:4/bytes, EG2:4/bytes,
+	      LFO1:3/bytes, LFO2:3/bytes, Patch:8/bytes, _:56/bytes>>)
+  when UnisonDetune =< 99 ->
+    #{midi_ch => timbre_midich_from_int(MidiCh),
+      assign_mode => timbre_assign_from_int(AssignMode),
+      eg2_reset => bin2onoff(EG2Reset),
+      eg1_reset => bin2onoff(EG1Reset),
+      trigger_mode => timbre_trigger_from_int(TriggerMode),
+      key_priority => timbre_keypriority_from_int(KeyPriority),
+      unison_detune => UnisonDetune,
+      pitch => timbre_pitch_to_map(Pitch),
+      osc1 => timbre_osc1_to_map(Osc1),
+      osc2 => timbre_osc2_to_map(Osc2),
+      porta_time => PortamentoTime,
+      mixer => timbre_mixer_to_map(Mixer),
+      filter => timbre_filter_to_map(Filter),
+      amp => timbre_amp_to_map(Amp),
+      eg1 => timbre_eg_to_map(EG1),
+      eg2 => timbre_eg_to_map(EG2),
+      lfo1 => timbre_lfo_to_map(1, LFO1),
+      lfo2 => timbre_lfo_to_map(2, LFO2),
+      patch => timbre_patch_to_map(Patch)}.
+
+timbre_midich_from_int(-1) -> global;
+timbre_midich_from_int(N) when N >= 0 -> N.
+
+timbre_assign_from_int(0) -> mono;
+timbre_assign_from_int(1) -> poly;
+timbre_assign_from_int(2) -> unison.
+
+timbre_trigger_from_int(0) -> single;
+timbre_trigger_from_int(1) -> multi.
+
+timbre_keypriority_from_int(0) -> last;
+timbre_keypriority_from_int(N) -> N.
+
+timbre_pitch_to_map(TODO) ->
+    TODO.
+
+timbre_osc1_to_map(TODO) ->
+    TODO.
+
+timbre_osc2_to_map(TODO) ->
+    TODO.
+
+timbre_mixer_to_map(TODO) ->
+    TODO.
+
+timbre_filter_to_map(TODO) ->
+    TODO.
+
+timbre_amp_to_map(TODO) ->
+    TODO.
+
+timbre_eg_to_map(TODO) ->
+    TODO.
+
+timbre_lfo_to_map(N, TODO) ->
+    TODO.
+
+timbre_patch_to_map(TODO) ->
+    TODO.
+
+vocoder_to_map(TODO) ->
+    TODO.
