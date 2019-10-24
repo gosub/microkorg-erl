@@ -1,6 +1,9 @@
 -module(program).
 -export([to_map/1]).
 
+bin2onoff(0) -> off;
+bin2onoff(1) -> on.
+
 to_map(ProgramData) ->
     <<Name:12/bytes, _:16, ArpCtrlData:2/bytes,
       _:2, VoiceMode:2, 0:4, ScaleKey:4, ScaleType:4, _:8,
