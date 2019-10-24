@@ -109,3 +109,10 @@ arp_reso_from_int(3) -> '1/8';
 arp_reso_from_int(4) -> '1/6';
 arp_reso_from_int(5) -> '1/4'.
 
+voices_to_list(single, <<Timbre1:108/bytes, _:108/bytes>>) ->
+    [timbre_to_map(Timbre1)];
+voices_to_list(double, <<Timbre1:108/bytes, Timbre2:108/bytes>>) ->
+    [timbre_to_map(Timbre1), timbre_to_map(Timbre2)];
+voices_to_list(vocoder, <<Vocoder:104/bytes, _:112/bytes>>) ->
+    [vocoder_to_map(Vocoder)].
+
