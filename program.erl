@@ -39,8 +39,6 @@ delayfx_to_map(<<Sync:1, 0:3, TimeBase:4,Time:8,Depth:8,Type:8>>) ->
       depth => Depth,
       type => delay_type_from_int(Type)}.
 
-modfx_to_map(<<>>) ->
-    todo.
 delay_timebase_from_int(N) ->
     lists:nth(N+1, ['1/32','1/24','1/16','1/12','3/32','1/8','1/6',
 		    '3/16','1/4','1/3','3/8','1/2','2/3','3/4','1/1']).
@@ -53,3 +51,11 @@ delay_type_from_int(2) -> lr.
 
 arp_to_map(<<>>) ->
     todo.
+modfx_to_map(<<LFOSpeed:8,Depth:8,Type:8>>) ->
+    #{lfo_speed => LFOSpeed,
+     depth => Depth,
+     type => mod_type_from_int(Type)}.
+
+mod_type_from_int(0) -> chorus;
+mod_type_from_int(1) -> ensemble;
+mod_type_from_int(2) -> phaser.
