@@ -47,8 +47,7 @@ delay_type_from_int(0) -> stereo;
 delay_type_from_int(1) -> cross;
 delay_type_from_int(2) -> lr.
 
-arp_to_map(<<>>) ->
-    todo.
+
 modfx_to_map(<<LFOSpeed:8,Depth:8,Type:8>>) ->
     #{lfo_speed => LFOSpeed,
      depth => Depth,
@@ -77,4 +76,36 @@ lofreq_from_int(N) ->
 
 gain_from_int(N) when N >= 64-12, N =< 64+12 ->
     N-64.
+
+arp_to_map(<<Tempo:16, OnOff:1, Latch:1, Target:2, 0:3, KeySync:1,
+	     Range:4, Type:4, GateTime:8, Resolution:8, Swing/signed-integer>>)
+   when GateTime =< 100, Swing >= -100, Swing =< 100 ->
+    #{tempo => Tempo,
+      onoff => bin2onoff(OnOff),
+      latch => bin2onoff(Latch),
+      target => arp_target_from_int(Target),
+      keysync => bin2onoff(KeySync),
+      range => Range+1,
+      type => arp_type_from_int(Type),
+      gate_time => GateTime,
+      resolution => arp_reso_from_int(Resolution),
+      swing => Swing}.
+
+arp_target_from_int(0) -> both;
+arp_target_from_int(1) -> timbre1;
+arp_target_from_int(2) -> timbre2.
+
+arp_type_from_int(0) -> up;
+arp_type_from_int(1) -> down;
+arp_type_from_int(2) -> alt1;
+arp_type_from_int(3) -> alt2;
+arp_type_from_int(4) -> random;
+arp_type_from_int(5) -> trigger.
+
+arp_reso_from_int(0) -> '1/24';
+arp_reso_from_int(1) -> '1/16';
+arp_reso_from_int(2) -> '1/12';
+arp_reso_from_int(3) -> '1/8';
+arp_reso_from_int(4) -> '1/6';
+arp_reso_from_int(5) -> '1/4'.
 
