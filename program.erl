@@ -32,14 +32,24 @@ voice_mode_from_int(3) -> vocoder.
 scale_key_from_int(N) ->
     lists:nth(N+1, [c,cs,d,ds,e,f,fs,g,gs,a,as,b]).
 
-delayfx_to_map(<<>>) ->
-    todo.
+delayfx_to_map(<<Sync:1, 0:3, TimeBase:4,Time:8,Depth:8,Type:8>>) ->
+    #{sync => bin2onoff(Sync),
+      timebase => delay_timebase_from_int(TimeBase),
+      time => Time,
+      depth => Depth,
+      type => delay_type_from_int(Type)}.
 
 modfx_to_map(<<>>) ->
     todo.
+delay_timebase_from_int(N) ->
+    lists:nth(N+1, ['1/32','1/24','1/16','1/12','3/32','1/8','1/6',
+		    '3/16','1/4','1/3','3/8','1/2','2/3','3/4','1/1']).
 
 eq_to_map(<<>>) ->
     todo.
+delay_type_from_int(0) -> stereo;
+delay_type_from_int(1) -> cross;
+delay_type_from_int(2) -> lr.
 
 arp_to_map(<<>>) ->
     todo.
