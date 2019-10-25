@@ -156,8 +156,11 @@ timbre_trigger_from_int(1) -> multi.
 timbre_keypriority_from_int(0) -> last;
 timbre_keypriority_from_int(N) -> N.
 
-timbre_pitch_to_map(TODO) ->
-    TODO.
+timbre_pitch_to_map(<<Tune:8,Bend:8,Trans:8,Vibrato:8>>)
+  when abs(Tune-64) =< 50, abs(Bend-64) =< 12,
+       abs(Trans-64) =< 24, abs(Vibrato-64) =< 63 ->
+    #{tune => Tune-64, bend => Bend-64,
+     transpose => Trans-64, vibrato => Vibrato-64}.
 
 timbre_osc1_to_map(TODO) ->
     TODO.
