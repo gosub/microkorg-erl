@@ -162,8 +162,6 @@ timbre_pitch_to_map(<<Tune:8,Bend:8,Trans:8,Vibrato:8>>)
     #{tune => Tune-64, bend => Bend-64,
      transpose => Trans-64, vibrato => Vibrato-64}.
 
-timbre_filter_to_map(TODO) ->
-    TODO.
 timbre_osc1_to_map(<<Wave:8,WaveCtrl1:8,WaveCtrl2:8,DWGS:8,_:8>>) ->
     #{wave => timbre1_wave(Wave),
       ctrl1 => WaveCtrl1,
@@ -200,6 +198,19 @@ timbre_mixer_to_map(<<Osc1Level:8, Osc2Level:8, Noise:8>>) ->
       osc2_lvl => Osc2Level,
       noise => Noise}.
 
+timbre_filter_to_map(<<Type:8,Cutoff:8,Reso:8,EG1Int:8,VelSens:8,KeyTrack:8>>)
+  when abs(EG1Int-64) =< 63, abs(KeyTrack-64) =< 63 ->
+    #{type => filter_type(Type),
+     cutoff => Cutoff,
+     reso => Reso,
+     eg1_intensity => EG1Int-64,
+     velocity_sense => VelSens-64,
+     key_track => KeyTrack-64}.
+
+filter_type(0) -> '24LPF';
+filter_type(1) -> '12LPF';
+filter_type(2) -> '12BPF';
+filter_type(3) -> '12HPF'.
 
 timbre_amp_to_map(TODO) ->
     TODO.
