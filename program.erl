@@ -162,9 +162,6 @@ timbre_pitch_to_map(<<Tune:8,Bend:8,Trans:8,Vibrato:8>>)
     #{tune => Tune-64, bend => Bend-64,
      transpose => Trans-64, vibrato => Vibrato-64}.
 
-timbre_osc2_to_map(TODO) ->
-    TODO.
-
 timbre_mixer_to_map(TODO) ->
     TODO.
 
@@ -184,6 +181,22 @@ timbre1_wave(4) -> vox;
 timbre1_wave(5) -> dwgs;
 timbre1_wave(6) -> noise;
 timbre1_wave(7) -> audioin.
+
+timbre_osc2_to_map(<<0:2,ModSelect:2,0:2,Wave:2,Semitone:8,Tune:8>>)
+  when abs(Semitone-64) =< 24, abs(Tune-64) =< 63 ->
+    #{modselect => timbre2_modselect(ModSelect),
+     wave => timbre2_wave(Wave),
+     semitone => Semitone-64,
+     tune => Tune-64}.
+
+timbre2_modselect(0) -> off;
+timbre2_modselect(1) -> ring;
+timbre2_modselect(2) -> sync;
+timbre2_modselect(3) -> ringsync.
+
+timbre2_wave(0) -> saw;
+timbre2_wave(1) -> square;
+timbre2_wave(2) -> triange.
 
 
 timbre_amp_to_map(TODO) ->
