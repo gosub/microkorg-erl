@@ -162,9 +162,6 @@ timbre_pitch_to_map(<<Tune:8,Bend:8,Trans:8,Vibrato:8>>)
     #{tune => Tune-64, bend => Bend-64,
      transpose => Trans-64, vibrato => Vibrato-64}.
 
-timbre_mixer_to_map(TODO) ->
-    TODO.
-
 timbre_filter_to_map(TODO) ->
     TODO.
 timbre_osc1_to_map(<<Wave:8,WaveCtrl1:8,WaveCtrl2:8,DWGS:8,_:8>>) ->
@@ -197,6 +194,11 @@ timbre2_modselect(3) -> ringsync.
 timbre2_wave(0) -> saw;
 timbre2_wave(1) -> square;
 timbre2_wave(2) -> triange.
+
+timbre_mixer_to_map(<<Osc1Level:8, Osc2Level:8, Noise:8>>) ->
+    #{osc1_lvl => Osc1Level,
+      osc2_lvl => Osc2Level,
+      noise => Noise}.
 
 
 timbre_amp_to_map(TODO) ->
