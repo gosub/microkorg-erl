@@ -212,8 +212,6 @@ filter_type(1) -> '12LPF';
 filter_type(2) -> '12BPF';
 filter_type(3) -> '12HPF'.
 
-timbre_lfo_to_map(N, TODO) ->
-    TODO.
 timbre_amp_to_map(<<Level:8,Pan:8,0:1,SW:1,0:5,Dist:1,
 		    VelSense:8,KeyTrack:8>>) when abs(KeyTrack-64) =< 63 ->
     #{level => Level,
@@ -228,6 +226,28 @@ timbre_patch_to_map(TODO) ->
 timbre_eg_to_map(<<Attack:8,Decay:8,Sustain:8,Release:8>>) ->
     #{attack => Attack, decay => Decay,
       sustain => Sustain, release => Release}.
+
+timbre_lfo_to_map(N, <<0:2, KeySync:2, 0:2, Wave:2, Freq:8,
+		       TempoSync:1, 0:2, SyncNote:5>>) ->
+    #{keysync => lfo_keysync(KeySync),
+      wave => lfo_wave(N, Wave),
+      freq => Freq,
+      tempo_sync => bin2onoff(TempoSync),
+      sync_note => lfo_syncnote(SyncNote)}.
+
+lfo_keysync(0) -> off;
+lfo_keysync(1) -> timbre;
+lfo_keysync(2) -> voice.
+
+lfo_wave(_, 0) -> saw;
+lfo_wave(_, 1) -> squ;
+lfo_wave(1, 2) -> tri;
+lfo_wave(2, 2) -> sin;
+lfo_wave(_, 3) -> sh.
+
+lfo_syncnote(N) ->
+    lists:nth(N+1, ['1/1','3/4','2/3','1/2','3/8','1/3','1/4', '3/16',
+		    '1/6','1/8','3/32','1/12','1/16','1/24','1/32']).
 
 vocoder_to_map(TODO) ->
     TODO.
