@@ -212,14 +212,19 @@ filter_type(1) -> '12LPF';
 filter_type(2) -> '12BPF';
 filter_type(3) -> '12HPF'.
 
-timbre_amp_to_map(TODO) ->
-    TODO.
-
 timbre_eg_to_map(TODO) ->
     TODO.
 
 timbre_lfo_to_map(N, TODO) ->
     TODO.
+timbre_amp_to_map(<<Level:8,Pan:8,0:1,SW:1,0:5,Dist:1,
+		    VelSense:8,KeyTrack:8>>) when abs(KeyTrack-64) =< 63 ->
+    #{level => Level,
+     pan => Pan-64,
+     sw => SW,
+     distortion => bin2onoff(Dist),
+     velocity_sense => VelSense-64,
+     key_track => KeyTrack-64}.
 
 timbre_patch_to_map(TODO) ->
     TODO.
