@@ -221,8 +221,6 @@ timbre_amp_to_map(<<Level:8,Pan:8,0:1,SW:1,0:5,Dist:1,
      velocity_sense => VelSense-64,
      key_track => KeyTrack-64}.
 
-timbre_patch_to_map(TODO) ->
-    TODO.
 timbre_eg_to_map(<<Attack:8,Decay:8,Sustain:8,Release:8>>) ->
     #{attack => Attack, decay => Decay,
       sustain => Sustain, release => Release}.
@@ -248,6 +246,35 @@ lfo_wave(_, 3) -> sh.
 lfo_syncnote(N) ->
     lists:nth(N+1, ['1/1','3/4','2/3','1/2','3/8','1/3','1/4', '3/16',
 		    '1/6','1/8','3/32','1/12','1/16','1/24','1/32']).
+
+timbre_patch_to_map(<<Cable1:2/bytes, Cable2:2/bytes,
+		      Cable3:2/bytes, Cable4:2/bytes>>) ->
+    {patch_cable(Cable1), patch_cable(Cable2),
+     patch_cable(Cable3), patch_cable(Cable4)}.
+
+patch_cable(<<Destination:4, Source:4, Intensity:8>>)
+  when abs(Intensity-64) =< 63 ->
+    #{destination => patch_cable_dest(Destination),
+      source => patch_cable_source(Source),
+      intensity => Intensity - 64}.
+
+patch_cable_dest(0) -> pitch;
+patch_cable_dest(1) -> osc2pitch;
+patch_cable_dest(2) -> osc1ctrl1;
+patch_cable_dest(3) -> noise;
+patch_cable_dest(4) -> cutoff;
+patch_cable_dest(5) -> amp;
+patch_cable_dest(6) -> pan;
+patch_cable_dest(7) -> lfo2_freq.
+
+patch_cable_source(0) -> eg1;
+patch_cable_source(1) -> eg2;
+patch_cable_source(2) -> lfo1;
+patch_cable_source(3) -> lfo2;
+patch_cable_source(4) -> velocity;
+patch_cable_source(5) -> kbd_track;
+patch_cable_source(6) -> pitch_bend;
+patch_cable_source(7) -> mod.
 
 vocoder_to_map(TODO) ->
     TODO.
