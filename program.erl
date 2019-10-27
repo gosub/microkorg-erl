@@ -212,9 +212,6 @@ filter_type(1) -> '12LPF';
 filter_type(2) -> '12BPF';
 filter_type(3) -> '12HPF'.
 
-timbre_eg_to_map(TODO) ->
-    TODO.
-
 timbre_lfo_to_map(N, TODO) ->
     TODO.
 timbre_amp_to_map(<<Level:8,Pan:8,0:1,SW:1,0:5,Dist:1,
@@ -228,6 +225,9 @@ timbre_amp_to_map(<<Level:8,Pan:8,0:1,SW:1,0:5,Dist:1,
 
 timbre_patch_to_map(TODO) ->
     TODO.
+timbre_eg_to_map(<<Attack:8,Decay:8,Sustain:8,Release:8>>) ->
+    #{attack => Attack, decay => Decay,
+      sustain => Sustain, release => Release}.
 
 vocoder_to_map(TODO) ->
     TODO.
