@@ -1,4 +1,4 @@
--module(program).
+-module(program_decode).
 -export([to_map/1]).
 
 bin2onoff(0) -> off;
