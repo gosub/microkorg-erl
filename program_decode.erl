@@ -1,15 +1,12 @@
 -module(program_decode).
 -export([to_map/1]).
 
-bin2onoff(0) -> off;
-bin2onoff(1) -> on.
-
 to_map(ProgramData) ->
     <<Name:12/bytes, _:16, ArpCtrlData:2/bytes,
       _:2, VoiceMode:2, 0:4, ScaleKey:4, ScaleType:4, _:8,
       DelayFx:4/bytes, ModFx:3/bytes, Eq:4/bytes, Arp:7/bytes,
       KbdOctave/signed-integer, VoicesParams:216/bytes>> = ProgramData,
-    Mode = voice_mode_from_int(VoiceMode),
+    Mode = enums:voice_mode(VoiceMode),
     #{name => Name,
       arpctrl => arpctrl(ArpCtrlData),
       voice_mode => Mode,
@@ -25,15 +22,11 @@ to_map(ProgramData) ->
 arpctrl(<<0:5, Len:3, T1:1,T2:1,T3:1,T4:1,T5:1,T6:1,T7:1,T8:1>>) ->
     #{len => Len+1, pattern => [T1,T2,T3,T4,T5,T6,T7,T8]}.
 
-voice_mode_from_int(0) -> single;
-voice_mode_from_int(2) -> double;
-voice_mode_from_int(3) -> vocoder.
-
 scale_key_from_int(N) ->
     lists:nth(N+1, [c,cs,d,ds,e,f,fs,g,gs,a,as,b]).
 
 delayfx_to_map(<<Sync:1, 0:3, TimeBase:4,Time:8,Depth:8,Type:8>>) ->
-    #{sync => bin2onoff(Sync),
+    #{sync => enums:onoff(Sync),
       timebase => delay_timebase_from_int(TimeBase),
       time => Time,
       depth => Depth,
@@ -81,10 +74,10 @@ arp_to_map(<<Tempo:16, OnOff:1, Latch:1, Target:2, 0:3, KeySync:1,
 	     Range:4, Type:4, GateTime:8, Resolution:8, Swing/signed-integer>>)
    when GateTime =< 100, Swing >= -100, Swing =< 100 ->
     #{tempo => Tempo,
-      onoff => bin2onoff(OnOff),
-      latch => bin2onoff(Latch),
+      onoff => enums:onoff(OnOff),
+      latch => enums:onoff(Latch),
       target => arp_target_from_int(Target),
-      keysync => bin2onoff(KeySync),
+      keysync => enums:onoff(KeySync),
       range => Range+1,
       type => arp_type_from_int(Type),
       gate_time => GateTime,
@@ -125,8 +118,8 @@ timbre_to_map(<<MidiCh/signed-integer,
   when UnisonDetune =< 99 ->
     #{midi_ch => timbre_midich_from_int(MidiCh),
       assign_mode => timbre_assign_from_int(AssignMode),
-      eg2_reset => bin2onoff(EG2Reset),
-      eg1_reset => bin2onoff(EG1Reset),
+      eg2_reset => enums:onoff(EG2Reset),
+      eg1_reset => enums:onoff(EG1Reset),
       trigger_mode => timbre_trigger_from_int(TriggerMode),
       key_priority => timbre_keypriority_from_int(KeyPriority),
       unison_detune => UnisonDetune,
@@ -217,7 +210,7 @@ timbre_amp_to_map(<<Level:8,Pan:8,0:1,SW:1,0:5,Dist:1,
     #{level => Level,
      pan => Pan-64,
      sw => SW,
-     distortion => bin2onoff(Dist),
+     distortion => enums:onoff(Dist),
      velocity_sense => VelSense-64,
      key_track => KeyTrack-64}.
 
@@ -230,7 +223,7 @@ timbre_lfo_to_map(N, <<0:2, KeySync:2, 0:2, Wave:2, Freq:8,
     #{keysync => lfo_keysync(KeySync),
       wave => lfo_wave(N, Wave),
       freq => Freq,
-      tempo_sync => bin2onoff(TempoSync),
+      tempo_sync => enums:onoff(TempoSync),
       sync_note => lfo_syncnote(SyncNote)}.
 
 lfo_keysync(0) -> off;
@@ -287,8 +280,8 @@ vocoder_to_map(<<MidiCh/signed-integer,
   when UnisonDetune =< 99 ->
     #{midi_ch => timbre_midich_from_int(MidiCh),
       assign_mode => timbre_assign_from_int(AssignMode),
-      eg2_reset => bin2onoff(EG2Reset),
-      eg1_reset => bin2onoff(EG1Reset),
+      eg2_reset => enums:onoff(EG2Reset),
+      eg1_reset => enums:onoff(EG1Reset),
       trigger_mode => timbre_trigger_from_int(TriggerMode),
       key_priority => timbre_keypriority_from_int(KeyPriority),
       unison_detune => UnisonDetune,
