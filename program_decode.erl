@@ -11,7 +11,7 @@ to_map(ProgramData) ->
       KbdOctave/signed-integer, VoicesParams:216/bytes>> = ProgramData,
     Mode = voice_mode_from_int(VoiceMode),
     #{name => Name,
-      arpctrl => arpctrl_to_map(ArpCtrlData),
+      arpctrl => arpctrl(ArpCtrlData),
       voice_mode => Mode,
       scale_key => scale_key_from_int(ScaleKey),
       scale_type => ScaleType,
@@ -22,7 +22,7 @@ to_map(ProgramData) ->
       kbd_oct => KbdOctave,
       voices => voices_to_list(Mode, VoicesParams)}.
 
-arpctrl_to_map(<<0:5, Len:3, T1:1,T2:1,T3:1,T4:1,T5:1,T6:1,T7:1,T8:1>>) ->
+arpctrl(<<0:5, Len:3, T1:1,T2:1,T3:1,T4:1,T5:1,T6:1,T7:1,T8:1>>) ->
     #{len => Len+1, pattern => [T1,T2,T3,T4,T5,T6,T7,T8]}.
 
 voice_mode_from_int(0) -> single;
