@@ -276,5 +276,34 @@ patch_cable_source(5) -> kbd_track;
 patch_cable_source(6) -> pitch_bend;
 patch_cable_source(7) -> mod.
 
-vocoder_to_map(TODO) ->
-    TODO.
+vocoder_to_map(<<MidiCh/signed-integer,
+		 AssignMode:2, EG2Reset:1, EG1Reset:1, TriggerMode:1,
+		 _:1, KeyPriority:2, UnisonDetune:8, Pitch:4/bytes, Osc1:5/bytes,
+		 _:7, AudioIn1HPFGate:1, _:8, 0:1, PortamentoTime:7, 
+		 Mixer:3/bytes, AudioIn1:3/bytes, Filter:6/bytes,
+		 Amp:5/bytes, 0:8, 0:8, 127:8, 0:8, EG2:4/bytes,
+		 LFO1:3/bytes, LFO2:3/bytes, ChLevels:16/bytes,
+		 PanLeves:16/bytes, HoldLevels:64/bytes>>)
+  when UnisonDetune =< 99 ->
+    #{midi_ch => timbre_midich_from_int(MidiCh),
+      assign_mode => timbre_assign_from_int(AssignMode),
+      eg2_reset => bin2onoff(EG2Reset),
+      eg1_reset => bin2onoff(EG1Reset),
+      trigger_mode => timbre_trigger_from_int(TriggerMode),
+      key_priority => timbre_keypriority_from_int(KeyPriority),
+      unison_detune => UnisonDetune,
+      % TODO: complete decoding of remaining parameters
+      pitch => Pitch,
+      osc1 => Osc1,
+      audioin1_hpfgate => AudioIn1HPFGate,
+      porta_time => PortamentoTime,
+      mixer => Mixer,
+      audioin1 => AudioIn1,
+      filter => Filter,
+      amp => Amp,
+      eg2 => EG2,
+      lfo1 => LFO1,
+      lfo2 => LFO2,
+      ch_levels => ChLevels,
+      pan_levels => PanLeves,
+      hold_levels => HoldLevels}.
