@@ -10,7 +10,7 @@ to_map(ProgramData) ->
     #{name => Name,
       arpctrl => arpctrl(ArpCtrlData),
       voice_mode => Mode,
-      scale_key => scale_key_from_int(ScaleKey),
+      scale_key => enums:scale_key(ScaleKey),
       scale_type => ScaleType,
       delayfx => delayfx_to_map(DelayFx),
       modfx => modfx_to_map(ModFx),
@@ -21,9 +21,6 @@ to_map(ProgramData) ->
 
 arpctrl(<<0:5, Len:3, T1:1,T2:1,T3:1,T4:1,T5:1,T6:1,T7:1,T8:1>>) ->
     #{len => Len+1, pattern => [T1,T2,T3,T4,T5,T6,T7,T8]}.
-
-scale_key_from_int(N) ->
-    lists:nth(N+1, [c,cs,d,ds,e,f,fs,g,gs,a,as,b]).
 
 delayfx_to_map(<<Sync:1, 0:3, TimeBase:4,Time:8,Depth:8,Type:8>>) ->
     #{sync => enums:onoff(Sync),
