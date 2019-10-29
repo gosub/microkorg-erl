@@ -13,7 +13,7 @@ to_map(ProgramData) ->
       scale_key => enums:scale_key(ScaleKey),
       scale_type => ScaleType,
       delayfx => delayfx(DelayFx),
-      modfx => modfx_to_map(ModFx),
+      modfx => modfx(ModFx),
       eq => eq_to_map(Eq),
       arp => arp_to_map(Arp),
       kbd_oct => KbdOctave,
@@ -29,7 +29,7 @@ delayfx(<<Sync:1, 0:3, TimeBase:4,Time:8,Depth:8,Type:8>>) ->
       depth => Depth,
       type => enums:delay_type(Type)}.
 
-modfx_to_map(<<LFOSpeed:8,Depth:8,Type:8>>) ->
+modfx(<<LFOSpeed:8,Depth:8,Type:8>>) ->
     #{lfo_speed => LFOSpeed,
      depth => Depth,
      type => mod_type_from_int(Type)}.
