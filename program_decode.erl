@@ -32,11 +32,7 @@ delayfx(<<Sync:1, 0:3, TimeBase:4,Time:8,Depth:8,Type:8>>) ->
 modfx(<<LFOSpeed:8,Depth:8,Type:8>>) ->
     #{lfo_speed => LFOSpeed,
      depth => Depth,
-     type => mod_type_from_int(Type)}.
-
-mod_type_from_int(0) -> chorus;
-mod_type_from_int(1) -> ensemble;
-mod_type_from_int(2) -> phaser.
+     type => enums:mod_type(Type)}.
 
 eq_to_map(<<HiFreq:8,HiGain:8,LoFreq:8,LoGain:8>>) ->
     #{hifreq => hifreq_from_int(HiFreq),

@@ -1,5 +1,6 @@
 -module(enums).
--export([onoff/1, voice_mode/1, scale_key/1, delay_timebase/1, delay_type/1]).
+-export([onoff/1, voice_mode/1, scale_key/1, delay_timebase/1, delay_type/1,
+	 mod_type/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -33,3 +34,10 @@ delay_type(2) -> lr;
 delay_type(stereo) -> 0;
 delay_type(cross)  -> 1;
 delay_type(lr)     -> 2.
+
+mod_type(0) -> chorus;
+mod_type(1) -> ensemble;
+mod_type(2) -> phaser;
+mod_type(chorus)   -> 0;
+mod_type(ensemble) -> 1;
+mod_type(phaser)   -> 2.
