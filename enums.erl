@@ -1,5 +1,5 @@
 -module(enums).
--export([onoff/1, voice_mode/1, scale_key/1]).
+-export([onoff/1, voice_mode/1, scale_key/1, delay_timebase/1, delay_type/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -27,3 +27,9 @@ delay_timebase(X) ->
     F = utils:list_to_fun(?DLY_TIMEBASE),
     F(X).
 
+delay_type(0) -> stereo;
+delay_type(1) -> cross;
+delay_type(2) -> lr;
+delay_type(stereo) -> 0;
+delay_type(cross)  -> 1;
+delay_type(lr)     -> 2.

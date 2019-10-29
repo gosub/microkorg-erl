@@ -27,12 +27,7 @@ delayfx(<<Sync:1, 0:3, TimeBase:4,Time:8,Depth:8,Type:8>>) ->
       timebase => enums:delay_timebase(TimeBase),
       time => Time,
       depth => Depth,
-      type => delay_type_from_int(Type)}.
-
-delay_type_from_int(0) -> stereo;
-delay_type_from_int(1) -> cross;
-delay_type_from_int(2) -> lr.
-
+      type => enums:delay_type(Type)}.
 
 modfx_to_map(<<LFOSpeed:8,Depth:8,Type:8>>) ->
     #{lfo_speed => LFOSpeed,
