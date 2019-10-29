@@ -24,14 +24,10 @@ arpctrl(<<0:5, Len:3, T1:1,T2:1,T3:1,T4:1,T5:1,T6:1,T7:1,T8:1>>) ->
 
 delayfx(<<Sync:1, 0:3, TimeBase:4,Time:8,Depth:8,Type:8>>) ->
     #{sync => enums:onoff(Sync),
-      timebase => delay_timebase_from_int(TimeBase),
+      timebase => enums:delay_timebase(TimeBase),
       time => Time,
       depth => Depth,
       type => delay_type_from_int(Type)}.
-
-delay_timebase_from_int(N) ->
-    lists:nth(N+1, ['1/32','1/24','1/16','1/12','3/32','1/8','1/6',
-		    '3/16','1/4','1/3','3/8','1/2','2/3','3/4','1/1']).
 
 delay_type_from_int(0) -> stereo;
 delay_type_from_int(1) -> cross;
