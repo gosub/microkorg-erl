@@ -14,7 +14,7 @@ to_map(ProgramData) ->
       scale_type => ScaleType,
       delayfx => delayfx(DelayFx),
       modfx => modfx(ModFx),
-      eq => eq_to_map(Eq),
+      eq => eq(Eq),
       arp => arp_to_map(Arp),
       kbd_oct => KbdOctave,
       voices => voices_to_list(Mode, VoicesParams)}.
@@ -34,7 +34,7 @@ modfx(<<LFOSpeed:8,Depth:8,Type:8>>) ->
      depth => Depth,
      type => enums:mod_type(Type)}.
 
-eq_to_map(<<HiFreq:8,HiGain:8,LoFreq:8,LoGain:8>>) ->
+eq(<<HiFreq:8,HiGain:8,LoFreq:8,LoGain:8>>) ->
     #{hifreq => hifreq_from_int(HiFreq),
      higain => gain_from_int(HiGain),
      lofreq => lofreq_from_int(LoFreq),
