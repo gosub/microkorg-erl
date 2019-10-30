@@ -62,3 +62,16 @@ arp_target(both)    -> 0;
 arp_target(timbre1) -> 1;
 arp_target(timbre2) -> 2.
 
+arp_type(0) -> up;
+arp_type(1) -> down;
+arp_type(2) -> alt1;
+arp_type(3) -> alt2;
+arp_type(4) -> random;
+arp_type(5) -> trigger;
+arp_type(up)      -> 0;
+arp_type(down)    -> 1;
+arp_type(alt1)    -> 2;
+arp_type(alt2)    -> 3;
+arp_type(random)  -> 4;
+arp_type(trigger) -> 5.
+

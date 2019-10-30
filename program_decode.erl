@@ -51,17 +51,10 @@ arp(<<Tempo:16, OnOff:1, Latch:1, Target:2, 0:3, KeySync:1,
       target => enums:arp_target(Target),
       keysync => enums:onoff(KeySync),
       range => Range+1,
-      type => arp_type_from_int(Type),
+      type => enums:arp_type(Type),
       gate_time => GateTime,
       resolution => arp_reso_from_int(Resolution),
       swing => Swing}.
-
-arp_type_from_int(0) -> up;
-arp_type_from_int(1) -> down;
-arp_type_from_int(2) -> alt1;
-arp_type_from_int(3) -> alt2;
-arp_type_from_int(4) -> random;
-arp_type_from_int(5) -> trigger.
 
 arp_reso_from_int(0) -> '1/24';
 arp_reso_from_int(1) -> '1/16';
