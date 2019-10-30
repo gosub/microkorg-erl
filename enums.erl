@@ -1,7 +1,7 @@
 -module(enums).
 -export([onoff/1, voice_mode/1, scale_key/1, delay_timebase/1, delay_type/1,
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
-	 arp_reso/1]).
+	 arp_reso/1, timbre_assign/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -87,3 +87,10 @@ arp_reso('1/12') -> 2;
 arp_reso('1/8')  -> 3;
 arp_reso('1/6')  -> 4;
 arp_reso('1/4')  -> 5.
+
+timbre_assign(0) -> mono;
+timbre_assign(1) -> poly;
+timbre_assign(2) -> unison;
+timbre_assign(mono)   -> 0;
+timbre_assign(poly)   -> 1;
+timbre_assign(unison) -> 2.
