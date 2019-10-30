@@ -70,7 +70,7 @@ timbre_to_map(<<MidiCh/signed-integer,
 	      Filter:6/bytes, Amp:5/bytes, EG1:4/bytes, EG2:4/bytes,
 	      LFO1:3/bytes, LFO2:3/bytes, Patch:8/bytes, _:56/bytes>>)
   when UnisonDetune =< 99 ->
-    #{midi_ch => timbre_midich_from_int(MidiCh),
+    #{midi_ch => timbre_midich(MidiCh),
       assign_mode => timbre_assign_from_int(AssignMode),
       eg2_reset => enums:onoff(EG2Reset),
       eg1_reset => enums:onoff(EG1Reset),
@@ -90,8 +90,8 @@ timbre_to_map(<<MidiCh/signed-integer,
       lfo2 => timbre_lfo_to_map(2, LFO2),
       patch => timbre_patch_to_map(Patch)}.
 
-timbre_midich_from_int(-1) -> global;
-timbre_midich_from_int(N) when N >= 0 -> N.
+timbre_midich(-1) -> global;
+timbre_midich(N) when N >= 0 -> N.
 
 timbre_assign_from_int(0) -> mono;
 timbre_assign_from_int(1) -> poly;
@@ -232,8 +232,8 @@ vocoder_to_map(<<MidiCh/signed-integer,
 		 LFO1:3/bytes, LFO2:3/bytes, ChLevels:16/bytes,
 		 PanLeves:16/bytes, HoldLevels:64/bytes>>)
   when UnisonDetune =< 99 ->
-    #{midi_ch => timbre_midich_from_int(MidiCh),
       assign_mode => timbre_assign_from_int(AssignMode),
+    #{midi_ch => timbre_midich(MidiCh),
       eg2_reset => enums:onoff(EG2Reset),
       eg1_reset => enums:onoff(EG1Reset),
       trigger_mode => timbre_trigger_from_int(TriggerMode),
