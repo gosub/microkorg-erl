@@ -53,15 +53,8 @@ arp(<<Tempo:16, OnOff:1, Latch:1, Target:2, 0:3, KeySync:1,
       range => Range+1,
       type => enums:arp_type(Type),
       gate_time => GateTime,
-      resolution => arp_reso_from_int(Resolution),
+      resolution => enums:arp_reso(Resolution),
       swing => Swing}.
-
-arp_reso_from_int(0) -> '1/24';
-arp_reso_from_int(1) -> '1/16';
-arp_reso_from_int(2) -> '1/12';
-arp_reso_from_int(3) -> '1/8';
-arp_reso_from_int(4) -> '1/6';
-arp_reso_from_int(5) -> '1/4'.
 
 voices_to_list(single, <<Timbre1:108/bytes, _:108/bytes>>) ->
     [timbre_to_map(Timbre1)];

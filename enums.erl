@@ -75,3 +75,15 @@ arp_type(alt2)    -> 3;
 arp_type(random)  -> 4;
 arp_type(trigger) -> 5.
 
+arp_reso(0) -> '1/24';
+arp_reso(1) -> '1/16';
+arp_reso(2) -> '1/12';
+arp_reso(3) -> '1/8';
+arp_reso(4) -> '1/6';
+arp_reso(5) -> '1/4';
+arp_reso('1/24') -> 0;
+arp_reso('1/16') -> 1;
+arp_reso('1/12') -> 2;
+arp_reso('1/8')  -> 3;
+arp_reso('1/6')  -> 4;
+arp_reso('1/4')  -> 5.
