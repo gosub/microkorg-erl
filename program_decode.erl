@@ -35,13 +35,12 @@ modfx(<<LFOSpeed:8,Depth:8,Type:8>>) ->
      type => enums:mod_type(Type)}.
 
 eq(<<HiFreq:8,HiGain:8,LoFreq:8,LoGain:8>>) ->
-     higain => gain_from_int(HiGain),
-     logain => gain_from_int(LoGain)}.
     #{hifreq => enums:hifreqs(HiFreq),
+     higain => gain(HiGain),
      lofreq => enums:lofreqs(LoFreq),
+     logain => gain(LoGain)}.
 
-gain_from_int(N) when N >= 64-12, N =< 64+12 ->
-    N-64.
+gain(N) when N >= 64-12, N =< 64+12 -> N-64.
 
 arp(<<Tempo:16, OnOff:1, Latch:1, Target:2, 0:3, KeySync:1,
       Range:4, Type:4, GateTime:8, Resolution:8, Swing/signed-integer>>)
