@@ -11,6 +11,9 @@
 		   3250, 3500, 3750, 4000, 4250, 4500, 4750, 5000, 5250,
 		   5500, 5750, 6000, 7000, 8000, 9000, 10000, 11000, 12000,
 		   14000, 16000, 18000]).
+-define(LO_FREQS, [40, 50, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240,
+		   260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460,
+		   480, 500, 600, 700, 800, 900, 1000]).
 
 onoff(0) -> off;
 onoff(1) -> on;
@@ -48,4 +51,7 @@ mod_type(phaser)   -> 2.
 
 hifreqs(N) when N >= 0, N =< 29 -> lists:nth(N+1, ?HI_FREQS);
 hifreqs(N) when N >= 1000, N =< 18000 -> utils:find(N, ?HI_FREQS).
+
+lofreqs(N) when N >= 0, N =< 29 -> lists:nth(N+1, ?LO_FREQS);
+lofreqs(N) when N >= 40, N =< 1000 -> utils:find(N, ?LO_FREQS).
 

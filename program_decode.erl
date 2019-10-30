@@ -36,14 +36,9 @@ modfx(<<LFOSpeed:8,Depth:8,Type:8>>) ->
 
 eq(<<HiFreq:8,HiGain:8,LoFreq:8,LoGain:8>>) ->
      higain => gain_from_int(HiGain),
-     lofreq => lofreq_from_int(LoFreq),
      logain => gain_from_int(LoGain)}.
     #{hifreq => enums:hifreqs(HiFreq),
-
-lofreq_from_int(N) ->
-    lists:nth(N+1, [40, 50, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240,
-		   260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460,
-		   480, 500, 600, 700, 800, 900, 1000]).
+     lofreq => enums:lofreqs(LoFreq),
 
 gain_from_int(N) when N >= 64-12, N =< 64+12 ->
     N-64.
