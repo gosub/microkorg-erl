@@ -48,17 +48,13 @@ arp(<<Tempo:16, OnOff:1, Latch:1, Target:2, 0:3, KeySync:1,
     #{tempo => Tempo,
       onoff => enums:onoff(OnOff),
       latch => enums:onoff(Latch),
-      target => arp_target_from_int(Target),
+      target => enums:arp_target(Target),
       keysync => enums:onoff(KeySync),
       range => Range+1,
       type => arp_type_from_int(Type),
       gate_time => GateTime,
       resolution => arp_reso_from_int(Resolution),
       swing => Swing}.
-
-arp_target_from_int(0) -> both;
-arp_target_from_int(1) -> timbre1;
-arp_target_from_int(2) -> timbre2.
 
 arp_type_from_int(0) -> up;
 arp_type_from_int(1) -> down;

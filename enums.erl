@@ -55,3 +55,10 @@ hifreqs(N) when N >= 1000, N =< 18000 -> utils:find(N, ?HI_FREQS).
 lofreqs(N) when N >= 0, N =< 29 -> lists:nth(N+1, ?LO_FREQS);
 lofreqs(N) when N >= 40, N =< 1000 -> utils:find(N, ?LO_FREQS).
 
+arp_target(0) -> both;
+arp_target(1) -> timbre1;
+arp_target(2) -> timbre2;
+arp_target(both)    -> 0;
+arp_target(timbre1) -> 1;
+arp_target(timbre2) -> 2.
+
