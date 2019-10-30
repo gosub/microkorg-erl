@@ -35,16 +35,10 @@ modfx(<<LFOSpeed:8,Depth:8,Type:8>>) ->
      type => enums:mod_type(Type)}.
 
 eq(<<HiFreq:8,HiGain:8,LoFreq:8,LoGain:8>>) ->
-    #{hifreq => hifreq_from_int(HiFreq),
      higain => gain_from_int(HiGain),
      lofreq => lofreq_from_int(LoFreq),
      logain => gain_from_int(LoGain)}.
-
-hifreq_from_int(N) ->
-    lists:nth(N+1,[1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000,
-		  3250, 3500, 3750, 4000, 4250, 4500, 4750, 5000, 5250,
-		  5500, 5750, 6000, 7000, 8000, 9000, 10000, 11000, 12000,
-		  14000, 16000, 18000]).
+    #{hifreq => enums:hifreqs(HiFreq),
 
 lofreq_from_int(N) ->
     lists:nth(N+1, [40, 50, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240,
