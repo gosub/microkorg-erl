@@ -15,7 +15,7 @@ to_map(ProgramData) ->
       delayfx => delayfx(DelayFx),
       modfx => modfx(ModFx),
       eq => eq(Eq),
-      arp => arp_to_map(Arp),
+      arp => arp(Arp),
       kbd_oct => KbdOctave,
       voices => voices_to_list(Mode, VoicesParams)}.
 
@@ -54,8 +54,8 @@ lofreq_from_int(N) ->
 gain_from_int(N) when N >= 64-12, N =< 64+12 ->
     N-64.
 
-arp_to_map(<<Tempo:16, OnOff:1, Latch:1, Target:2, 0:3, KeySync:1,
-	     Range:4, Type:4, GateTime:8, Resolution:8, Swing/signed-integer>>)
+arp(<<Tempo:16, OnOff:1, Latch:1, Target:2, 0:3, KeySync:1,
+      Range:4, Type:4, GateTime:8, Resolution:8, Swing/signed-integer>>)
    when GateTime =< 100, Swing >= -100, Swing =< 100 ->
     #{tempo => Tempo,
       onoff => enums:onoff(OnOff),
