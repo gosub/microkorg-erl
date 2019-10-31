@@ -74,7 +74,7 @@ timbre_to_map(<<MidiCh/signed-integer,
       assign_mode => enums:timbre_assign(AssignMode),
       eg2_reset => enums:onoff(EG2Reset),
       eg1_reset => enums:onoff(EG1Reset),
-      trigger_mode => timbre_trigger_from_int(TriggerMode),
+      trigger_mode => enums:timbre_trigger(TriggerMode),
       key_priority => timbre_keypriority_from_int(KeyPriority),
       unison_detune => UnisonDetune,
       pitch => timbre_pitch_to_map(Pitch),
@@ -92,9 +92,6 @@ timbre_to_map(<<MidiCh/signed-integer,
 
 timbre_midich(-1) -> global;
 timbre_midich(N) when N >= 0 -> N.
-
-timbre_trigger_from_int(0) -> single;
-timbre_trigger_from_int(1) -> multi.
 
 timbre_keypriority_from_int(0) -> last;
 timbre_keypriority_from_int(N) -> N.
@@ -232,7 +229,7 @@ vocoder_to_map(<<MidiCh/signed-integer,
       assign_mode => enums:timbre_assign(AssignMode),
       eg2_reset => enums:onoff(EG2Reset),
       eg1_reset => enums:onoff(EG1Reset),
-      trigger_mode => timbre_trigger_from_int(TriggerMode),
+      trigger_mode => enums:timbre_trigger(TriggerMode),
       key_priority => timbre_keypriority_from_int(KeyPriority),
       unison_detune => UnisonDetune,
       % TODO: complete decoding of remaining parameters
