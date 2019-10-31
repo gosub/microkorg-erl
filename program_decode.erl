@@ -103,19 +103,10 @@ timbre_pitch(<<Tune:8,Bend:8,Trans:8,Vibrato:8>>)
      transpose => Trans-64, vibrato => Vibrato-64}.
 
 timbre_osc1(<<Wave:8,WaveCtrl1:8,WaveCtrl2:8,DWGS:8,_:8>>) ->
-    #{wave => timbre1_wave(Wave),
+    #{wave => enums:timbre1_wave(Wave),
       ctrl1 => WaveCtrl1,
       ctrl2 => WaveCtrl2,
       dwgs => DWGS+1}.
-
-timbre1_wave(0) -> saw;
-timbre1_wave(1) -> pulse;
-timbre1_wave(2) -> triangle;
-timbre1_wave(3) -> sin;
-timbre1_wave(4) -> vox;
-timbre1_wave(5) -> dwgs;
-timbre1_wave(6) -> noise;
-timbre1_wave(7) -> audioin.
 
 timbre_osc2_to_map(<<0:2,ModSelect:2,0:2,Wave:2,Semitone:8,Tune:8>>)
   when abs(Semitone-64) =< 24, abs(Tune-64) =< 63 ->
