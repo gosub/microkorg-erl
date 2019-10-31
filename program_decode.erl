@@ -81,7 +81,7 @@ timbre_to_map(<<MidiCh/signed-integer,
       osc1 => timbre_osc1(Osc1),
       osc2 => timbre_osc2(Osc2),
       porta_time => PortamentoTime,
-      mixer => timbre_mixer_to_map(Mixer),
+      mixer => timbre_mixer(Mixer),
       filter => timbre_filter_to_map(Filter),
       amp => timbre_amp_to_map(Amp),
       eg1 => timbre_eg_to_map(EG1),
@@ -115,7 +115,7 @@ timbre_osc2(<<0:2,ModSelect:2,0:2,Wave:2,Semitone:8,Tune:8>>)
      semitone => Semitone-64,
      tune => Tune-64}.
 
-timbre_mixer_to_map(<<Osc1Level:8, Osc2Level:8, Noise:8>>) ->
+timbre_mixer(<<Osc1Level:8, Osc2Level:8, Noise:8>>) ->
     #{osc1_lvl => Osc1Level,
       osc2_lvl => Osc2Level,
       noise => Noise}.
