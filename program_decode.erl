@@ -111,13 +111,9 @@ timbre_osc1(<<Wave:8,WaveCtrl1:8,WaveCtrl2:8,DWGS:8,_:8>>) ->
 timbre_osc2(<<0:2,ModSelect:2,0:2,Wave:2,Semitone:8,Tune:8>>)
   when abs(Semitone-64) =< 24, abs(Tune-64) =< 63 ->
     #{modselect => enums:timbre2_modselect(ModSelect),
-     wave => timbre2_wave(Wave),
+     wave => enums:timbre2_wave(Wave),
      semitone => Semitone-64,
      tune => Tune-64}.
-
-timbre2_wave(0) -> saw;
-timbre2_wave(1) -> square;
-timbre2_wave(2) -> triange.
 
 timbre_mixer_to_map(<<Osc1Level:8, Osc2Level:8, Noise:8>>) ->
     #{osc1_lvl => Osc1Level,

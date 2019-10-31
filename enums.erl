@@ -2,7 +2,7 @@
 -export([onoff/1, voice_mode/1, scale_key/1, delay_timebase/1, delay_type/1,
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
 	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
-	 timbre2_modselect/1]).
+	 timbre2_modselect/1, timbre2_wave/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -126,3 +126,10 @@ timbre2_modselect(off)      -> 0;
 timbre2_modselect(ring)     -> 1;
 timbre2_modselect(sync)     -> 2;
 timbre2_modselect(ringsync) -> 3.
+
+timbre2_wave(0) -> saw;
+timbre2_wave(1) -> square;
+timbre2_wave(2) -> triange;
+timbre2_wave(saw)     -> 0;
+timbre2_wave(square)  -> 1;
+timbre2_wave(triange) -> 2.
