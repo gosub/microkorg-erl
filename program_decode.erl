@@ -110,15 +110,10 @@ timbre_osc1(<<Wave:8,WaveCtrl1:8,WaveCtrl2:8,DWGS:8,_:8>>) ->
 
 timbre_osc2(<<0:2,ModSelect:2,0:2,Wave:2,Semitone:8,Tune:8>>)
   when abs(Semitone-64) =< 24, abs(Tune-64) =< 63 ->
-    #{modselect => timbre2_modselect(ModSelect),
+    #{modselect => enums:timbre2_modselect(ModSelect),
      wave => timbre2_wave(Wave),
      semitone => Semitone-64,
      tune => Tune-64}.
-
-timbre2_modselect(0) -> off;
-timbre2_modselect(1) -> ring;
-timbre2_modselect(2) -> sync;
-timbre2_modselect(3) -> ringsync.
 
 timbre2_wave(0) -> saw;
 timbre2_wave(1) -> square;

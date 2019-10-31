@@ -1,7 +1,8 @@
 -module(enums).
 -export([onoff/1, voice_mode/1, scale_key/1, delay_timebase/1, delay_type/1,
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
-	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1]).
+	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
+	 timbre2_modselect/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -116,3 +117,12 @@ timbre1_wave(vox)      -> 4;
 timbre1_wave(dwgs)     -> 5;
 timbre1_wave(noise)    -> 6;
 timbre1_wave(audioin)  -> 7.
+
+timbre2_modselect(0) -> off;
+timbre2_modselect(1) -> ring;
+timbre2_modselect(2) -> sync;
+timbre2_modselect(3) -> ringsync;
+timbre2_modselect(off)      -> 0;
+timbre2_modselect(ring)     -> 1;
+timbre2_modselect(sync)     -> 2;
+timbre2_modselect(ringsync) -> 3.
