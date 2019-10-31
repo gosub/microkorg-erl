@@ -77,7 +77,7 @@ timbre_to_map(<<MidiCh/signed-integer,
       trigger_mode => enums:timbre_trigger(TriggerMode),
       key_priority => timbre_keypriority(KeyPriority),
       unison_detune => UnisonDetune,
-      pitch => timbre_pitch_to_map(Pitch),
+      pitch => timbre_pitch(Pitch),
       osc1 => timbre_osc1_to_map(Osc1),
       osc2 => timbre_osc2_to_map(Osc2),
       porta_time => PortamentoTime,
@@ -96,7 +96,7 @@ timbre_midich(N) when N >= 0 -> N.
 timbre_keypriority(0) -> last;
 timbre_keypriority(N) -> N.
 
-timbre_pitch_to_map(<<Tune:8,Bend:8,Trans:8,Vibrato:8>>)
+timbre_pitch(<<Tune:8,Bend:8,Trans:8,Vibrato:8>>)
   when abs(Tune-64) =< 50, abs(Bend-64) =< 12,
        abs(Trans-64) =< 24, abs(Vibrato-64) =< 63 ->
     #{tune => Tune-64, bend => Bend-64,
