@@ -78,7 +78,7 @@ timbre_to_map(<<MidiCh/signed-integer,
       key_priority => timbre_keypriority(KeyPriority),
       unison_detune => UnisonDetune,
       pitch => timbre_pitch(Pitch),
-      osc1 => timbre_osc1_to_map(Osc1),
+      osc1 => timbre_osc1(Osc1),
       osc2 => timbre_osc2_to_map(Osc2),
       porta_time => PortamentoTime,
       mixer => timbre_mixer_to_map(Mixer),
@@ -102,7 +102,7 @@ timbre_pitch(<<Tune:8,Bend:8,Trans:8,Vibrato:8>>)
     #{tune => Tune-64, bend => Bend-64,
      transpose => Trans-64, vibrato => Vibrato-64}.
 
-timbre_osc1_to_map(<<Wave:8,WaveCtrl1:8,WaveCtrl2:8,DWGS:8,_:8>>) ->
+timbre_osc1(<<Wave:8,WaveCtrl1:8,WaveCtrl2:8,DWGS:8,_:8>>) ->
     #{wave => timbre1_wave(Wave),
       ctrl1 => WaveCtrl1,
       ctrl2 => WaveCtrl2,
