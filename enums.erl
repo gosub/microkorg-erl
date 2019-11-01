@@ -3,7 +3,7 @@
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
 	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
 	 timbre2_modselect/1, timbre2_wave/1, filter_type/1, lfo_keysync/1,
-	 lfo_wave/2]).
+	 lfo_wave/2, lfo_syncnote/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -16,6 +16,8 @@
 -define(LO_FREQS, [40, 50, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240,
 		   260, 280, 300, 320, 340, 360, 380, 400, 420, 440, 460,
 		   480, 500, 600, 700, 800, 900, 1000]).
+-define(LFO_SYNCNOTE, ['1/1','3/4','2/3','1/2','3/8','1/3','1/4', '3/16',
+		    '1/6','1/8','3/32','1/12','1/16','1/24','1/32']).
 
 onoff(0) -> off;
 onoff(1) -> on;
@@ -161,3 +163,7 @@ lfo_wave(_, squ) -> 1;
 lfo_wave(1, tri) -> 2;
 lfo_wave(2, sin) -> 2;
 lfo_wave(_, sh)  -> 3.
+
+lfo_syncnote(X) ->
+    F = utils:list_to_fun(?LFO_SYNCNOTE),
+    F(X).

@@ -148,11 +148,7 @@ timbre_lfo(N, <<0:2, KeySync:2, 0:2, Wave:2, Freq:8,
       wave => enums:lfo_wave(N, Wave),
       freq => Freq,
       tempo_sync => enums:onoff(TempoSync),
-      sync_note => lfo_syncnote(SyncNote)}.
-
-lfo_syncnote(N) ->
-    lists:nth(N+1, ['1/1','3/4','2/3','1/2','3/8','1/3','1/4', '3/16',
-		    '1/6','1/8','3/32','1/12','1/16','1/24','1/32']).
+      sync_note => enums:lfo_syncnote(SyncNote)}.
 
 timbre_patch_to_map(<<Cable1:2/bytes, Cable2:2/bytes,
 		      Cable3:2/bytes, Cable4:2/bytes>>) ->
