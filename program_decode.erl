@@ -84,8 +84,8 @@ timbre_to_map(<<MidiCh/signed-integer,
       mixer => timbre_mixer(Mixer),
       filter => timbre_filter(Filter),
       amp => timbre_amp(Amp),
-      eg1 => timbre_eg_to_map(EG1),
-      eg2 => timbre_eg_to_map(EG2),
+      eg1 => timbre_eg(EG1),
+      eg2 => timbre_eg(EG2),
       lfo1 => timbre_lfo_to_map(1, LFO1),
       lfo2 => timbre_lfo_to_map(2, LFO2),
       patch => timbre_patch_to_map(Patch)}.
@@ -138,7 +138,7 @@ timbre_amp(<<Level:8,Pan:8,0:1,SW:1,0:5,Dist:1,VelSense:8,KeyTrack:8>>)
      velocity_sense => VelSense-64,
      key_track => KeyTrack-64}.
 
-timbre_eg_to_map(<<Attack:8,Decay:8,Sustain:8,Release:8>>) ->
+timbre_eg(<<Attack:8,Decay:8,Sustain:8,Release:8>>) ->
     #{attack => Attack, decay => Decay,
       sustain => Sustain, release => Release}.
 
