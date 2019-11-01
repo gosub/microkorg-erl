@@ -88,7 +88,7 @@ timbre_to_map(<<MidiCh/signed-integer,
       eg2 => timbre_eg(EG2),
       lfo1 => timbre_lfo(1, LFO1),
       lfo2 => timbre_lfo(2, LFO2),
-      patch => timbre_patch_to_map(Patch)}.
+      patch => timbre_patch(Patch)}.
 
 timbre_midich(-1) -> global;
 timbre_midich(N) when N >= 0 -> N.
@@ -150,8 +150,8 @@ timbre_lfo(N, <<0:2, KeySync:2, 0:2, Wave:2, Freq:8,
       tempo_sync => enums:onoff(TempoSync),
       sync_note => enums:lfo_syncnote(SyncNote)}.
 
-timbre_patch_to_map(<<Cable1:2/bytes, Cable2:2/bytes,
-		      Cable3:2/bytes, Cable4:2/bytes>>) ->
+timbre_patch(<<Cable1:2/bytes, Cable2:2/bytes,
+	       Cable3:2/bytes, Cable4:2/bytes>>) ->
     {patch_cable(Cable1), patch_cable(Cable2),
      patch_cable(Cable3), patch_cable(Cable4)}.
 
