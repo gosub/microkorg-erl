@@ -122,17 +122,12 @@ timbre_mixer(<<Osc1Level:8, Osc2Level:8, Noise:8>>) ->
 
 timbre_filter(<<Type:8,Cutoff:8,Reso:8,EG1Int:8,VelSens:8,KeyTrack:8>>)
   when abs(EG1Int-64) =< 63, abs(KeyTrack-64) =< 63 ->
-    #{type => filter_type(Type),
+    #{type => enums:filter_type(Type),
      cutoff => Cutoff,
      reso => Reso,
      eg1_intensity => EG1Int-64,
      velocity_sense => VelSens-64,
      key_track => KeyTrack-64}.
-
-filter_type(0) -> '24LPF';
-filter_type(1) -> '12LPF';
-filter_type(2) -> '12BPF';
-filter_type(3) -> '12HPF'.
 
 timbre_amp_to_map(<<Level:8,Pan:8,0:1,SW:1,0:5,Dist:1,
 		    VelSense:8,KeyTrack:8>>) when abs(KeyTrack-64) =< 63 ->

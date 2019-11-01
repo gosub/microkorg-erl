@@ -2,7 +2,7 @@
 -export([onoff/1, voice_mode/1, scale_key/1, delay_timebase/1, delay_type/1,
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
 	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
-	 timbre2_modselect/1, timbre2_wave/1]).
+	 timbre2_modselect/1, timbre2_wave/1, filter_type/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -133,3 +133,12 @@ timbre2_wave(2) -> triange;
 timbre2_wave(saw)     -> 0;
 timbre2_wave(square)  -> 1;
 timbre2_wave(triange) -> 2.
+
+filter_type(0) -> '24LPF';
+filter_type(1) -> '12LPF';
+filter_type(2) -> '12BPF';
+filter_type(3) -> '12HPF';
+filter_type('24LPF') -> 0;
+filter_type('12LPF') -> 1;
+filter_type('12BPF') -> 2;
+filter_type('12HPF') -> 3.
