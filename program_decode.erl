@@ -86,8 +86,8 @@ timbre_to_map(<<MidiCh/signed-integer,
       amp => timbre_amp(Amp),
       eg1 => timbre_eg(EG1),
       eg2 => timbre_eg(EG2),
-      lfo1 => timbre_lfo_to_map(1, LFO1),
-      lfo2 => timbre_lfo_to_map(2, LFO2),
+      lfo1 => timbre_lfo(1, LFO1),
+      lfo2 => timbre_lfo(2, LFO2),
       patch => timbre_patch_to_map(Patch)}.
 
 timbre_midich(-1) -> global;
@@ -142,7 +142,7 @@ timbre_eg(<<Attack:8,Decay:8,Sustain:8,Release:8>>) ->
     #{attack => Attack, decay => Decay,
       sustain => Sustain, release => Release}.
 
-timbre_lfo_to_map(N, <<0:2, KeySync:2, 0:2, Wave:2, Freq:8,
+timbre_lfo(N, <<0:2, KeySync:2, 0:2, Wave:2, Freq:8,
 		       TempoSync:1, 0:2, SyncNote:5>>) ->
     #{keysync => lfo_keysync(KeySync),
       wave => lfo_wave(N, Wave),
