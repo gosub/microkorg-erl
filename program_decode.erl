@@ -143,7 +143,7 @@ timbre_eg(<<Attack:8,Decay:8,Sustain:8,Release:8>>) ->
       sustain => Sustain, release => Release}.
 
 timbre_lfo(N, <<0:2, KeySync:2, 0:2, Wave:2, Freq:8,
-		       TempoSync:1, 0:2, SyncNote:5>>) ->
+		TempoSync:1, 0:2, SyncNote:5>>) ->
     #{keysync => enums:lfo_keysync(KeySync),
       wave => enums:lfo_wave(N, Wave),
       freq => Freq,
