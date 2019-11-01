@@ -2,7 +2,8 @@
 -export([onoff/1, voice_mode/1, scale_key/1, delay_timebase/1, delay_type/1,
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
 	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
-	 timbre2_modselect/1, timbre2_wave/1, filter_type/1, lfo_keysync/1]).
+	 timbre2_modselect/1, timbre2_wave/1, filter_type/1, lfo_keysync/1,
+	 lfo_wave/2]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -149,3 +150,14 @@ lfo_keysync(2) -> voice;
 lfo_keysync(off)    -> 0;
 lfo_keysync(timbre) -> 1;
 lfo_keysync(voice)  -> 2.
+
+lfo_wave(_, 0) -> saw;
+lfo_wave(_, 1) -> squ;
+lfo_wave(1, 2) -> tri;
+lfo_wave(2, 2) -> sin;
+lfo_wave(_, 3) -> sh;
+lfo_wave(_, saw) -> 0;
+lfo_wave(_, squ) -> 1;
+lfo_wave(1, tri) -> 2;
+lfo_wave(2, sin) -> 2;
+lfo_wave(_, sh)  -> 3.
