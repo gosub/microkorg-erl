@@ -82,7 +82,7 @@ timbre_to_map(<<MidiCh/signed-integer,
       osc2 => timbre_osc2(Osc2),
       porta_time => PortamentoTime,
       mixer => timbre_mixer(Mixer),
-      filter => timbre_filter_to_map(Filter),
+      filter => timbre_filter(Filter),
       amp => timbre_amp_to_map(Amp),
       eg1 => timbre_eg_to_map(EG1),
       eg2 => timbre_eg_to_map(EG2),
@@ -120,7 +120,7 @@ timbre_mixer(<<Osc1Level:8, Osc2Level:8, Noise:8>>) ->
       osc2_lvl => Osc2Level,
       noise => Noise}.
 
-timbre_filter_to_map(<<Type:8,Cutoff:8,Reso:8,EG1Int:8,VelSens:8,KeyTrack:8>>)
+timbre_filter(<<Type:8,Cutoff:8,Reso:8,EG1Int:8,VelSens:8,KeyTrack:8>>)
   when abs(EG1Int-64) =< 63, abs(KeyTrack-64) =< 63 ->
     #{type => filter_type(Type),
      cutoff => Cutoff,
