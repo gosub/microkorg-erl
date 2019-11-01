@@ -2,7 +2,7 @@
 -export([onoff/1, voice_mode/1, scale_key/1, delay_timebase/1, delay_type/1,
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
 	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
-	 timbre2_modselect/1, timbre2_wave/1, filter_type/1]).
+	 timbre2_modselect/1, timbre2_wave/1, filter_type/1, lfo_keysync/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -142,3 +142,10 @@ filter_type('24LPF') -> 0;
 filter_type('12LPF') -> 1;
 filter_type('12BPF') -> 2;
 filter_type('12HPF') -> 3.
+
+lfo_keysync(0) -> off;
+lfo_keysync(1) -> timbre;
+lfo_keysync(2) -> voice;
+lfo_keysync(off)    -> 0;
+lfo_keysync(timbre) -> 1;
+lfo_keysync(voice)  -> 2.

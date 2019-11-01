@@ -144,15 +144,11 @@ timbre_eg(<<Attack:8,Decay:8,Sustain:8,Release:8>>) ->
 
 timbre_lfo(N, <<0:2, KeySync:2, 0:2, Wave:2, Freq:8,
 		       TempoSync:1, 0:2, SyncNote:5>>) ->
-    #{keysync => lfo_keysync(KeySync),
+    #{keysync => enums:lfo_keysync(KeySync),
       wave => lfo_wave(N, Wave),
       freq => Freq,
       tempo_sync => enums:onoff(TempoSync),
       sync_note => lfo_syncnote(SyncNote)}.
-
-lfo_keysync(0) -> off;
-lfo_keysync(1) -> timbre;
-lfo_keysync(2) -> voice.
 
 lfo_wave(_, 0) -> saw;
 lfo_wave(_, 1) -> squ;
