@@ -3,7 +3,7 @@
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
 	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
 	 timbre2_modselect/1, timbre2_wave/1, filter_type/1, lfo_keysync/1,
-	 lfo_wave/2, lfo_syncnote/1]).
+	 lfo_wave/2, lfo_syncnote/1, cable_dest/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -167,3 +167,20 @@ lfo_wave(_, sh)  -> 3.
 lfo_syncnote(X) ->
     F = utils:list_to_fun(?LFO_SYNCNOTE),
     F(X).
+
+cable_dest(0) -> pitch;
+cable_dest(1) -> osc2pitch;
+cable_dest(2) -> osc1ctrl1;
+cable_dest(3) -> noise;
+cable_dest(4) -> cutoff;
+cable_dest(5) -> amp;
+cable_dest(6) -> pan;
+cable_dest(7) -> lfo2_freq;
+cable_dest(pitch)     -> 0;
+cable_dest(osc2pitch) -> 1;
+cable_dest(osc1ctrl1) -> 2;
+cable_dest(noise)     -> 3;
+cable_dest(cutoff)    -> 4;
+cable_dest(amp)       -> 5;
+cable_dest(pan)       -> 6;
+cable_dest(lfo2_freq) -> 7.

@@ -157,18 +157,9 @@ timbre_patch(<<Cable1:2/bytes, Cable2:2/bytes,
 
 patch_cable(<<Destination:4, Source:4, Intensity:8>>)
   when abs(Intensity-64) =< 63 ->
-    #{destination => patch_cable_dest(Destination),
+    #{destination => enums:cable_dest(Destination),
       source => patch_cable_source(Source),
       intensity => Intensity - 64}.
-
-patch_cable_dest(0) -> pitch;
-patch_cable_dest(1) -> osc2pitch;
-patch_cable_dest(2) -> osc1ctrl1;
-patch_cable_dest(3) -> noise;
-patch_cable_dest(4) -> cutoff;
-patch_cable_dest(5) -> amp;
-patch_cable_dest(6) -> pan;
-patch_cable_dest(7) -> lfo2_freq.
 
 patch_cable_source(0) -> eg1;
 patch_cable_source(1) -> eg2;
