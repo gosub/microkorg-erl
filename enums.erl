@@ -3,7 +3,7 @@
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
 	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
 	 timbre2_modselect/1, timbre2_wave/1, filter_type/1, lfo_keysync/1,
-	 lfo_wave/2, lfo_syncnote/1, cable_dest/1]).
+	 lfo_wave/2, lfo_syncnote/1, cable_dest/1, cable_source/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -184,3 +184,20 @@ cable_dest(cutoff)    -> 4;
 cable_dest(amp)       -> 5;
 cable_dest(pan)       -> 6;
 cable_dest(lfo2_freq) -> 7.
+
+cable_source(0) -> eg1;
+cable_source(1) -> eg2;
+cable_source(2) -> lfo1;
+cable_source(3) -> lfo2;
+cable_source(4) -> velocity;
+cable_source(5) -> kbd_track;
+cable_source(6) -> pitch_bend;
+cable_source(7) -> mod;
+cable_source(eg1)        -> 0;
+cable_source(eg2)        -> 1;
+cable_source(lfo1)       -> 2;
+cable_source(lfo2)       -> 3;
+cable_source(velocity)   -> 4;
+cable_source(kbd_track)  -> 5;
+cable_source(pitch_bend) -> 6;
+cable_source(mod)        -> 7.

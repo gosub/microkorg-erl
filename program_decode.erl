@@ -158,17 +158,8 @@ timbre_patch(<<Cable1:2/bytes, Cable2:2/bytes,
 patch_cable(<<Destination:4, Source:4, Intensity:8>>)
   when abs(Intensity-64) =< 63 ->
     #{destination => enums:cable_dest(Destination),
-      source => patch_cable_source(Source),
+      source => enums:cable_source(Source),
       intensity => Intensity - 64}.
-
-patch_cable_source(0) -> eg1;
-patch_cable_source(1) -> eg2;
-patch_cable_source(2) -> lfo1;
-patch_cable_source(3) -> lfo2;
-patch_cable_source(4) -> velocity;
-patch_cable_source(5) -> kbd_track;
-patch_cable_source(6) -> pitch_bend;
-patch_cable_source(7) -> mod.
 
 vocoder_to_map(<<MidiCh/signed-integer,
 		 AssignMode:2, EG2Reset:1, EG1Reset:1, TriggerMode:1,
