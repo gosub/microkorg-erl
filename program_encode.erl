@@ -6,9 +6,10 @@ from_map(#{name:=Name, arpctrl:=ArpCtrl, voice_mode:=VoiceMode,
 	   modfx:=ModFx, eq:=Eq, arp:=Arp, kbd_oct:=KbdOctave,
 	   voices:=Voices}) ->
     ArpCtrlData = arpctrl(ArpCtrl),
+    ScaleKeyData = enums:scale_key(ScaleKey),
     VoiceModeData = enums:voice_mode(VoiceMode),
     <<Name:12/bytes, 0:16, ArpCtrlData:2/bytes, 0:2,
-      VoiceModeData:2, 0:4>>.
+      VoiceModeData:2, 0:4, ScaleKeyData:4, ScaleType:4>>.
 
 %% to_map(ProgramData) ->
 %%     <<Name:12/bytes, _:16, ArpCtrlData:2/bytes,
