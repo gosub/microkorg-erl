@@ -4,5 +4,5 @@
 to_map(ProgramData) ->
     program_decode:to_map(ProgramData).
 
-from_map(TODO) ->
-    TODO.
+from_map(ProgramMap) ->
+    program_encode:from_map(ProgramMap).
