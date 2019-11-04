@@ -10,9 +10,10 @@ from_map(#{name:=Name, arpctrl:=ArpCtrl, voice_mode:=VoiceMode,
     VoiceModeData = enums:voice_mode(VoiceMode),
     DelayFxData = delayfx(DelayFx),
     ModFxData = modfx(ModFx),
+    EqData = eq(Eq),
     <<Name:12/bytes, 0:16, ArpCtrlData:2/bytes, 0:2,
       VoiceModeData:2, 0:4, ScaleKeyData:4, ScaleType:4, 0:8,
-      DelayFxData:4/bytes, ModFxData:3/bytes>>.
+      DelayFxData:4/bytes, ModFxData:3/bytes, EqData:4/bytes>>.
 
 %% to_map(ProgramData) ->
 %%     <<Name:12/bytes, _:16, ArpCtrlData:2/bytes,
@@ -46,3 +47,14 @@ delayfx(#{sync:=Sync, timebase:=TimeBase, time:=Time, depth:=Depth,
 modfx(#{lfo_speed:=LFOSpeed, depth:=Depth, type:=Type}) ->
     TypeData = enums:mod_type(Type),
     <<LFOSpeed:8, Depth:8, TypeData:8>>.
+
+eq(#{hifreq:=HiFreq, higain:=HiGain,
+     lofreq:=LoFreq, logain:=LoGain}) ->
+    HiFreqData = enums:hifreqs(HiFreq),
+    HiGainData = gain(HiGain),
+    LoFreqData = enums:lofreqs(LoFreq),
+    LoGainData = gain(LoGain),
+    <<HiFreqData:8, HiGainData:8,
+      LoFreqData:8, LoGainData:8>>.
+
+gain(N) when abs(N) =< 12 -> N+64.
