@@ -9,9 +9,10 @@ from_map(#{name:=Name, arpctrl:=ArpCtrl, voice_mode:=VoiceMode,
     ScaleKeyData = enums:scale_key(ScaleKey),
     VoiceModeData = enums:voice_mode(VoiceMode),
     DelayFxData = delayfx(DelayFx),
+    ModFxData = modfx(ModFx),
     <<Name:12/bytes, 0:16, ArpCtrlData:2/bytes, 0:2,
       VoiceModeData:2, 0:4, ScaleKeyData:4, ScaleType:4, 0:8,
-      DelayFxData:4/bytes>>.
+      DelayFxData:4/bytes, ModFxData:3/bytes>>.
 
 %% to_map(ProgramData) ->
 %%     <<Name:12/bytes, _:16, ArpCtrlData:2/bytes,
@@ -41,3 +42,7 @@ delayfx(#{sync:=Sync, timebase:=TimeBase, time:=Time, depth:=Depth,
     TimeBaseData = enums:delay_timebase(TimeBase),
     TypeData = enums:delay_type(Type),
     <<SyncData:1, 0:3, TimeBaseData:4, Time:8, Depth:8, TypeData:8>>.
+
+modfx(#{lfo_speed:=LFOSpeed, depth:=Depth, type:=Type}) ->
+    TypeData = enums:mod_type(Type),
+    <<LFOSpeed:8, Depth:8, TypeData:8>>.
