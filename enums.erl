@@ -54,10 +54,14 @@ mod_type(ensemble) -> 1;
 mod_type(phaser)   -> 2.
 
 hifreqs(N) when N >= 0, N =< 29 -> lists:nth(N+1, ?HI_FREQS);
-hifreqs(N) when N >= 1000, N =< 18000 -> utils:find(N, ?HI_FREQS).
+hifreqs(N) when N >= 1000, N =< 18000 ->
+    {ok, Pos} = utils:find(N, ?HI_FREQS),
+    Pos.
 
 lofreqs(N) when N >= 0, N =< 29 -> lists:nth(N+1, ?LO_FREQS);
-lofreqs(N) when N >= 40, N =< 1000 -> utils:find(N, ?LO_FREQS).
+lofreqs(N) when N >= 40, N =< 1000 ->
+    {ok, Pos} = utils:find(N, ?LO_FREQS),
+    Pos.
 
 arp_target(0) -> both;
 arp_target(1) -> timbre1;
