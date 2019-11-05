@@ -12,10 +12,11 @@ from_map(#{name:=Name, arpctrl:=ArpCtrl, voice_mode:=VoiceMode,
     ModFxData = modfx(ModFx),
     EqData = eq(Eq),
     ArpData = arp(Arp),
+    VoicesData = list_to_voices(VoiceMode, Voices),
     <<Name:12/bytes, 0:16, ArpCtrlData:2/bytes, 0:2,
       VoiceModeData:2, 0:4, ScaleKeyData:4, ScaleType:4, 0:8,
       DelayFxData:4/bytes, ModFxData:3/bytes, EqData:4/bytes,
-      ArpData:7/bytes, KbdOctave/signed-integer>>.
+      ArpData:7/bytes, KbdOctave/signed-integer, VoicesData:216/bytes>>.
 
 %% to_map(ProgramData) ->
 %%     <<Name:12/bytes, _:16, ArpCtrlData:2/bytes,
@@ -74,3 +75,21 @@ arp(#{tempo:=Tempo, onoff:=OnOff, latch:=Latch, target:=Target,
     ResoData = enums:arp_reso(Reso),
     <<Tempo:16, OnOffData:1, LatchData:1, TargetData:2, 0:3, KeySyncData:1,
       RangeData:4, TypeData:4, GateTime:8, ResoData:8, Swing/signed-integer>>.
+
+list_to_voices(single, [TimbreMap1]) ->
+    TimbreData = timbre(TimbreMap1),
+    <<TimbreData:108/bytes, TimbreData:108/bytes>>;
+list_to_voices(double, [TimbreMap1, TimbreMap2]) ->
+    Timbre1Data = timbre(TimbreMap1),
+    Timbre2Data = timbre(TimbreMap2),
+    <<Timbre1Data:108/bytes, Timbre2Data:108/bytes>>;
+list_to_voices(vocoder, [VocoderMap]) ->
+    VocoderData = vocoder(VocoderMap),
+    Zero = 0,
+    <<VocoderData:104/bytes, Zero:112/bytes>>.
+
+timbre(_) ->
+    <<>>.
+
+vocoder(_) ->
+    <<>>.
