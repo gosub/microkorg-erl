@@ -11,9 +11,11 @@ from_map(#{name:=Name, arpctrl:=ArpCtrl, voice_mode:=VoiceMode,
     DelayFxData = delayfx(DelayFx),
     ModFxData = modfx(ModFx),
     EqData = eq(Eq),
+    ArpData = arp(Arp),
     <<Name:12/bytes, 0:16, ArpCtrlData:2/bytes, 0:2,
       VoiceModeData:2, 0:4, ScaleKeyData:4, ScaleType:4, 0:8,
-      DelayFxData:4/bytes, ModFxData:3/bytes, EqData:4/bytes>>.
+      DelayFxData:4/bytes, ModFxData:3/bytes, EqData:4/bytes,
+      ArpData:7/bytes>>.
 
 %% to_map(ProgramData) ->
 %%     <<Name:12/bytes, _:16, ArpCtrlData:2/bytes,
@@ -58,3 +60,17 @@ eq(#{hifreq:=HiFreq, higain:=HiGain,
       LoFreqData:8, LoGainData:8>>.
 
 gain(N) when abs(N) =< 12 -> N+64.
+
+arp(#{tempo:=Tempo, onoff:=OnOff, latch:=Latch, target:=Target,
+      keysync:=KeySync, range:=Range, type:=Type, gate_time:=GateTime,
+      resolution:=Reso, swing:=Swing})
+  when GateTime =< 100, abs(Swing) =< 100 ->
+    OnOffData = enums:onoff(OnOff),
+    LatchData = enums:onoff(Latch),
+    TargetData = enums:arp_target(Target),
+    KeySyncData = enums:onoff(KeySync),
+    RangeData = Range-1,
+    TypeData = enums:arp_type(Type),
+    ResoData = enums:arp_reso(Reso),
+    <<Tempo:16, OnOffData:1, LatchData:1, TargetData:2, 0:3, KeySyncData:1,
+      RangeData:4, TypeData:4, GateTime:8, ResoData:8, Swing/signed-integer>>.
