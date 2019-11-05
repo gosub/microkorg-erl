@@ -15,7 +15,7 @@ from_map(#{name:=Name, arpctrl:=ArpCtrl, voice_mode:=VoiceMode,
     <<Name:12/bytes, 0:16, ArpCtrlData:2/bytes, 0:2,
       VoiceModeData:2, 0:4, ScaleKeyData:4, ScaleType:4, 0:8,
       DelayFxData:4/bytes, ModFxData:3/bytes, EqData:4/bytes,
-      ArpData:7/bytes>>.
+      ArpData:7/bytes, KbdOctave/signed-integer>>.
 
 %% to_map(ProgramData) ->
 %%     <<Name:12/bytes, _:16, ArpCtrlData:2/bytes,
