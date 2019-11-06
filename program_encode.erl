@@ -70,8 +70,15 @@ list_to_voices(vocoder, [VocoderMap]) ->
     Zero = 0,
     <<VocoderData:104/bytes, Zero:112/bytes>>.
 
-timbre(_) ->
-    <<>>.
+timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
+	 eg1_reset:=EG1Reset, trigger_mode:=TrigMode, key_priority:=KeyPrio}) ->
+    MidiChData = midich(MidiCh),
+    AssignModeData = enums:timbre_assign(AssignMode),
+    <<MidiChData/signed-integer, AssignModeData:2>>.
+
+
+midich(global) -> -1;
+midich(N) when N >= 0 -> N.
 
 vocoder(_) ->
     <<>>.
