@@ -76,9 +76,38 @@ timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
     AssignModeData = enums:timbre_assign(AssignMode),
     <<MidiChData/signed-integer, AssignModeData:2>>.
 
+%% timbre_to_map(<<MidiCh/signed-integer,
+%% 		AssignMode:2, EG2Reset:1, EG1Reset:1, TriggerMode:1,
+%% 	      _:1, KeyPriority:2, UnisonDetune:8, Pitch:4/bytes, Osc1:5/bytes,
+%% 	      Osc2:3/bytes, 0:1, PortamentoTime:7, Mixer:3/bytes,
+%% 	      Filter:6/bytes, Amp:5/bytes, EG1:4/bytes, EG2:4/bytes,
+%% 	      LFO1:3/bytes, LFO2:3/bytes, Patch:8/bytes, _:56/bytes>>)
+%%   when UnisonDetune =< 99 ->
+%%     #{midi_ch => timbre_midich(MidiCh),
+%%       assign_mode => enums:timbre_assign(AssignMode),
+%%       eg2_reset => enums:onoff(EG2Reset),
+%%       eg1_reset => enums:onoff(EG1Reset),
+%%       trigger_mode => enums:timbre_trigger(TriggerMode),
+%%       key_priority => timbre_keypriority(KeyPriority),
+%%       unison_detune => UnisonDetune,
+%%       pitch => timbre_pitch(Pitch),
+%%       osc1 => timbre_osc1(Osc1),
+%%       osc2 => timbre_osc2(Osc2),
+%%       porta_time => PortamentoTime,
+%%       mixer => timbre_mixer(Mixer),
+%%       filter => timbre_filter(Filter),
+%%       amp => timbre_amp(Amp),
+%%       eg1 => timbre_eg(EG1),
+%%       eg2 => timbre_eg(EG2),
+%%       lfo1 => timbre_lfo(1, LFO1),
+%%       lfo2 => timbre_lfo(2, LFO2),
+%%       patch => timbre_patch(Patch)}.
 
 midich(global) -> -1;
 midich(N) when N >= 0 -> N.
+
+%% timbre_keypriority(0) -> last;
+%% timbre_keypriority(N) -> N.
 
 vocoder(_) ->
     <<>>.
