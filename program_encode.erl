@@ -72,15 +72,17 @@ list_to_voices(vocoder, [VocoderMap]) ->
 
 timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
 	 eg1_reset:=EG1Reset, trigger_mode:=TrigMode, key_priority:=KeyPrio,
-	 unison_detune:=UniDet}) ->
+	 unison_detune:=UniDet, pitch:=Pitch}) ->
     MidiChData = midich(MidiCh),
     AssignModeData = enums:timbre_assign(AssignMode),
     EG2ResetData = enums:onoff(EG2Reset),
     EG1ResetData = enums:onoff(EG1Reset),
     TrigModeData = enums:timbre_trigger(TrigMode),
     KeyPrioData = keypriority(KeyPrio),
+    PitchData = pitch(Pitch),
     <<MidiChData/signed-integer, AssignModeData:2, EG2ResetData:1,
-      EG1ResetData:1, TrigModeData:1, 0:1, KeyPrioData:2, UniDet:8>>.
+      EG1ResetData:1, TrigModeData:1, 0:1, KeyPrioData:2, UniDet:8,
+      PitchData:4/bytes>>.
 
 %% timbre_to_map(<<MidiCh/signed-integer,
 %% 		AssignMode:2, EG2Reset:1, EG1Reset:1, TriggerMode:1,
@@ -114,6 +116,15 @@ midich(N) when N >= 0 -> N.
 
 keypriority(last) -> 0;
 keypriority(N) -> N.
+
+pitch(#{tune:=Tune, bend:=Bend, transpose:=Trans, vibrato:=Vibr})
+  when abs(Tune) =< 50, abs(Bend) =< 12,
+       abs(Trans) =< 24, abs(Vibr) =< 63 ->
+    TuneData = Tune + 64,
+    BendData = Bend + 64,
+    TransData = Trans + 64,
+    VibrData = Vibr + 64,
+    <<TuneData:8, BendData:8, TransData:8, VibrData:8>>.
 
 vocoder(_) ->
     <<>>.
