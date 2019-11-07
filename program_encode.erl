@@ -71,7 +71,8 @@ list_to_voices(vocoder, [VocoderMap]) ->
     <<VocoderData:104/bytes, Zero:112/bytes>>.
 
 timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
-	 eg1_reset:=EG1Reset, trigger_mode:=TrigMode, key_priority:=KeyPrio}) ->
+	 eg1_reset:=EG1Reset, trigger_mode:=TrigMode, key_priority:=KeyPrio,
+	 unison_detune:=UniDet}) ->
     MidiChData = midich(MidiCh),
     AssignModeData = enums:timbre_assign(AssignMode),
     EG2ResetData = enums:onoff(EG2Reset),
@@ -79,7 +80,7 @@ timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
     TrigModeData = enums:timbre_trigger(TrigMode),
     KeyPrioData = keypriority(KeyPrio),
     <<MidiChData/signed-integer, AssignModeData:2, EG2ResetData:1,
-      EG1ResetData:1, TrigModeData:1, 0:1, KeyPrioData:2>>.
+      EG1ResetData:1, TrigModeData:1, 0:1, KeyPrioData:2, UniDet:8>>.
 
 %% timbre_to_map(<<MidiCh/signed-integer,
 %% 		AssignMode:2, EG2Reset:1, EG1Reset:1, TriggerMode:1,
