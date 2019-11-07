@@ -77,8 +77,9 @@ timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
     EG2ResetData = enums:onoff(EG2Reset),
     EG1ResetData = enums:onoff(EG1Reset),
     TrigModeData = enums:timbre_trigger(TrigMode),
+    KeyPrioData = keypriority(KeyPrio),
     <<MidiChData/signed-integer, AssignModeData:2, EG2ResetData:1,
-      EG1ResetData:1, TrigModeData:1>>.
+      EG1ResetData:1, TrigModeData:1, 0:1, KeyPrioData:2>>.
 
 %% timbre_to_map(<<MidiCh/signed-integer,
 %% 		AssignMode:2, EG2Reset:1, EG1Reset:1, TriggerMode:1,
@@ -110,8 +111,8 @@ timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
 midich(global) -> -1;
 midich(N) when N >= 0 -> N.
 
-%% timbre_keypriority(0) -> last;
-%% timbre_keypriority(N) -> N.
+keypriority(last) -> 0;
+keypriority(N) -> N.
 
 vocoder(_) ->
     <<>>.
