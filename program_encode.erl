@@ -73,7 +73,7 @@ list_to_voices(vocoder, [VocoderMap]) ->
 timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
 	 eg1_reset:=EG1Reset, trigger_mode:=TrigMode, key_priority:=KeyPrio,
 	 unison_detune:=UniDet, pitch:=Pitch, osc1:=Osc1, osc2:=Osc2,
-	 porta_time:=Porta, mixer:=Mixer}) ->
+	 porta_time:=Porta, mixer:=Mixer, filter:=Filter}) ->
     MidiChData = midich(MidiCh),
     AssignModeData = enums:timbre_assign(AssignMode),
     EG2ResetData = enums:onoff(EG2Reset),
@@ -84,10 +84,11 @@ timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
     Osc1Data = osc1(Osc1),
     Osc2Data = osc2(Osc2),
     MixerData = mixer(Mixer),
+    FilterData = filter(Filter),
     <<MidiChData/signed-integer, AssignModeData:2, EG2ResetData:1,
       EG1ResetData:1, TrigModeData:1, 0:1, KeyPrioData:2, UniDet:8,
       PitchData:4/bytes,Osc1Data:5/bytes,Osc2Data:3/bytes, 0:1,
-      Porta:7, MixerData:3/bytes>>.
+      Porta:7, MixerData:3/bytes,FilterData:6/bytes>>.
 
 %% timbre_to_map(<<MidiCh/signed-integer,
 %% 		AssignMode:2, EG2Reset:1, EG1Reset:1, TriggerMode:1,
@@ -146,6 +147,16 @@ osc2(#{modselect:=ModSelect, wave:=Wave, semitone:=Semi,tune:=Tune})
 
 mixer(#{osc1_lvl:=Osc1Lvl, osc2_lvl:=Osc2Lvl, noise:=Noise}) ->
     <<Osc1Lvl:8,Osc2Lvl:8,Noise:8>>.
+
+filter(#{type:=Type,cutoff:=Cutoff,reso:=Reso,eg1_intensity:=EG1Int,
+	 velocity_sense:=VelSens, key_track:=KeyTrack})
+  when abs(EG1Int) =< 63, abs(KeyTrack) =< 63 ->
+    TypeData = enums:filter_type(Type),
+    EG1IntData = EG1Int + 64,
+    VelSensData = VelSens + 64,
+    KeyTrackData = KeyTrack + 64,
+    <<TypeData:8, Cutoff:8, Reso:8, EG1IntData:8,
+      VelSensData:8, KeyTrackData:8>>.
 
 vocoder(_) ->
     <<>>.
