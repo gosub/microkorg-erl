@@ -74,7 +74,7 @@ timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
 	 eg1_reset:=EG1Reset, trigger_mode:=TrigMode, key_priority:=KeyPrio,
 	 unison_detune:=UniDet, pitch:=Pitch, osc1:=Osc1, osc2:=Osc2,
 	 porta_time:=Porta, mixer:=Mixer, filter:=Filter, amp:=Amp,
-	 eg1:=EG1}) ->
+	 eg1:=EG1, eg2:=EG2}) ->
     MidiChData = midich(MidiCh),
     AssignModeData = enums:timbre_assign(AssignMode),
     EG2ResetData = enums:onoff(EG2Reset),
@@ -88,11 +88,12 @@ timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
     FilterData = filter(Filter),
     AmpData = amp(Amp),
     EG1Data = eg(EG1),
+    EG2Data = eg(EG2),
     <<MidiChData/signed-integer, AssignModeData:2, EG2ResetData:1,
       EG1ResetData:1, TrigModeData:1, 0:1, KeyPrioData:2, UniDet:8,
       PitchData:4/bytes,Osc1Data:5/bytes,Osc2Data:3/bytes, 0:1,
       Porta:7, MixerData:3/bytes,FilterData:6/bytes, AmpData:5/bytes,
-      EG1Data:4/bytes>>.
+      EG1Data:4/bytes, EG2Data:4/bytes>>.
 
 %% timbre_to_map(<<MidiCh/signed-integer,
 %% 		AssignMode:2, EG2Reset:1, EG1Reset:1, TriggerMode:1,
