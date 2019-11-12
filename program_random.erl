@@ -15,6 +15,12 @@ generate() ->
       %voices => voices()
      }.
 
+rnd(N) when is_integer(N) ->
+    rand:uniform(N);
+rnd(T) when is_tuple(T) ->
+    L = tuple_to_list(T),
+    lists:nth(rnd(length(L)), L).
+
 
 % TODO: funny name generator
 name() ->
