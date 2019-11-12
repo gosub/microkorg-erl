@@ -3,16 +3,17 @@
 -compile(export_all).
 
 generate() ->
+    Mode = mode(),
     #{name => name(),
-      arpctrl => arpctrl()
-      %voice_mode => mode(),
+      arpctrl => arpctrl(),
+      voice_mode => Mode
       %scale_key => scale(),
       %delayfx => delayfx(),
       %modfx => modfx(),
       %eq => eq(),
       %arp => arp(),
       %kbd_oct => kbd_oct(),
-      %voices => voices()
+      %voices => voices(Mode)
      }.
 
 rnd(N) when is_integer(N) ->
@@ -31,3 +32,6 @@ arpctrl() ->
       pattern => [r01(),r01(),r01(),r01(),
 		  r01(),r01(),r01(),r01()]
      }.
+
+mode() ->
+    rnd({single, double}).
