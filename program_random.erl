@@ -18,8 +18,7 @@ generate() ->
 rnd(N) when is_integer(N) ->
     rand:uniform(N);
 rnd(T) when is_tuple(T) ->
-    L = tuple_to_list(T),
-    lists:nth(rnd(length(L)), L).
+    element(rnd(tuple_size(T)), T).
 
 r01() -> rnd(2) - 1.
 
