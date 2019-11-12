@@ -21,7 +21,14 @@ rnd(T) when is_tuple(T) ->
     L = tuple_to_list(T),
     lists:nth(rnd(length(L)), L).
 
+r01() -> rnd(2) - 1.
 
 % TODO: funny name generator
 name() ->
     <<"            ">>.
+
+arpctrl() ->
+    #{len => rnd(8),
+      pattern => [r01(),r01(),r01(),r01(),
+		  r01(),r01(),r01(),r01()]
+     }.
