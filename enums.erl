@@ -3,7 +3,7 @@
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
 	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
 	 timbre2_modselect/1, timbre2_wave/1, filter_type/1, lfo_keysync/1,
-	 lfo_wave/2, lfo_syncnote/1, cable_dest/1, cable_source/1]).
+	 lfo_wave/2, lfo_syncnote/1, cable_dest/1, cable_source/1, values_of/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -205,3 +205,6 @@ cable_source(velocity)   -> 4;
 cable_source(kbd_track)  -> 5;
 cable_source(pitch_bend) -> 6;
 cable_source(mod)        -> 7.
+
+values_of(delay_timebase) -> list_to_tuple(?DLY_TIMEBASE);
+values_of(delay_type) -> {stereo, cross, lr}.
