@@ -6,8 +6,8 @@ generate() ->
     Mode = mode(),
     #{name => name(),
       arpctrl => arpctrl(),
-      voice_mode => Mode
-      %scale_key => scale(),
+      voice_mode => Mode,
+      scale_key => enums:scale_key(0)
       %delayfx => delayfx(),
       %modfx => modfx(),
       %eq => eq(),
