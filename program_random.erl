@@ -7,7 +7,7 @@ generate() ->
     #{name => name(),
       arpctrl => arpctrl(),
       voice_mode => Mode,
-      scale_key => enums:scale_key(0),
+      scale_key => 'C',
       delayfx => delayfx()
       %modfx => modfx(),
       %eq => eq(),
@@ -37,6 +37,7 @@ arpctrl() ->
 		  r01(),r01(),r01(),r01()]
      }.
 
+% temporarly excluded 'vocoder' from possible modes
 mode() ->
     rnd({single, double}).
 
