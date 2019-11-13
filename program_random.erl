@@ -7,8 +7,8 @@ generate() ->
     #{name => name(),
       arpctrl => arpctrl(),
       voice_mode => Mode,
-      scale_key => enums:scale_key(0)
-      %delayfx => delayfx(),
+      scale_key => enums:scale_key(0),
+      delayfx => delayfx()
       %modfx => modfx(),
       %eq => eq(),
       %arp => arp(),
@@ -39,3 +39,10 @@ arpctrl() ->
 
 mode() ->
     rnd({single, double}).
+
+delayfx() ->
+    #{sync => onoff(),
+      timebase => rnd(enums:values_of(delay_timebase)),
+      time => r127(),
+      depth => r127(),
+      type => rnd(enums:values_of(delay_type))}.
