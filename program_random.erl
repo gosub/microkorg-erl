@@ -10,8 +10,8 @@ generate() ->
       scale_key => 'C',
       delayfx => delayfx(),
       modfx => modfx(),
-      eq => eq()
-      %arp => arp(),
+      eq => eq(),
+      arp => arp()
       %kbd_oct => kbd_oct(),
       %voices => voices(Mode)
      }.
@@ -63,3 +63,14 @@ eq() ->
       logain => gain()}.
 
 gain() -> rrange(-12, 12).
+
+arp() ->
+    #{tempo => rrange(0, 65535), % 16bit range
+      onoff => onoff(),
+      latch => onoff(),
+      target => rnd(enums:values_of(arp_target)),
+      range => rrange(1,16),
+      type => rnd(enums:values_of(arp_type)),
+      gate_time => rrange(0, 100),
+      resolution => rnd(enums:values_of(arp_reso)),
+      swing => rrange(-100, 100)}.
