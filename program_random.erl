@@ -8,8 +8,8 @@ generate() ->
       arpctrl => arpctrl(),
       voice_mode => Mode,
       scale_key => 'C',
-      delayfx => delayfx()
-      %modfx => modfx(),
+      delayfx => delayfx(),
+      modfx => modfx()
       %eq => eq(),
       %arp => arp(),
       %kbd_oct => kbd_oct(),
@@ -47,3 +47,8 @@ delayfx() ->
       time => r127(),
       depth => r127(),
       type => rnd(enums:values_of(delay_type))}.
+
+modfx() ->
+    #{lfo_speed => r127(),
+      depth => r127(),
+      type => rnd(enums:values_of(mod_type))}.

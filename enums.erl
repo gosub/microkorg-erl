@@ -207,4 +207,5 @@ cable_source(pitch_bend) -> 6;
 cable_source(mod)        -> 7.
 
 values_of(delay_timebase) -> list_to_tuple(?DLY_TIMEBASE);
-values_of(delay_type) -> {stereo, cross, lr}.
+values_of(delay_type) -> {stereo, cross, lr};
+values_of(mod_type) -> {chorus, ensemble, phaser}.
