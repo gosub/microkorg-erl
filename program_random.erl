@@ -25,6 +25,9 @@ r01() -> rnd(2) - 1.
 
 r127() -> rnd(128) - 1.
 
+rrange(Min, Max) ->
+    Min + rnd(Max-Min+1) - 1.
+
 onoff() -> rnd({on, off}).
 
 % TODO: funny name generator
