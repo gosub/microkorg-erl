@@ -208,4 +208,6 @@ cable_source(mod)        -> 7.
 
 values_of(delay_timebase) -> list_to_tuple(?DLY_TIMEBASE);
 values_of(delay_type) -> {stereo, cross, lr};
-values_of(mod_type) -> {chorus, ensemble, phaser}.
+values_of(mod_type) -> {chorus, ensemble, phaser};
+values_of(hifreqs) -> list_to_tuple(?HI_FREQS);
+values_of(lofreqs) -> list_to_tuple(?LO_FREQS).
