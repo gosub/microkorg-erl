@@ -12,8 +12,8 @@ generate() ->
       modfx => modfx(),
       eq => eq(),
       arp => arp(),
-      kbd_oct => kbd_oct()
-      %voices => voices(Mode)
+      kbd_oct => kbd_oct(),
+      voices => voices(Mode)
      }.
 
 rnd(N) when is_integer(N) ->
@@ -76,3 +76,11 @@ arp() ->
       swing => rrange(-100, 100)}.
 
 kbd_oct() -> rrange(-3, 3).
+
+voices(single) ->
+    [timbre()];
+voices(double) ->
+    [timbre(), timbre()].
+
+timbre() ->
+    #{}.
