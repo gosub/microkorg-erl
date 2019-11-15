@@ -83,4 +83,4 @@ voices(double) ->
     [timbre(), timbre()].
 
 timbre() ->
-    #{}.
+    #{midi_ch => global}.
