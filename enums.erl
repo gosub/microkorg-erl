@@ -213,4 +213,5 @@ values_of(hifreqs) -> list_to_tuple(?HI_FREQS);
 values_of(lofreqs) -> list_to_tuple(?LO_FREQS);
 values_of(arp_target) -> {both, timbre1, timbre2};
 values_of(arp_type) -> {up, down, alt1, alt2, random, trigger};
-values_of(arp_reso) -> {'1/24', '1/16', '1/12', '1/8', '1/6', '1/4'}.
+values_of(arp_reso) -> {'1/24', '1/16', '1/12', '1/8', '1/6', '1/4'};
+values_of(timbre_assign) -> {mono, poly, unison}.

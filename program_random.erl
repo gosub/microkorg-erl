@@ -83,4 +83,6 @@ voices(double) ->
     [timbre(), timbre()].
 
 timbre() ->
-    #{midi_ch => global}.
+    #{midi_ch => global,
+      assign_mode => rnd(enums:values_of(timbre_assign))
+     }.
