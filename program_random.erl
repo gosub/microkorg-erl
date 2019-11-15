@@ -11,8 +11,8 @@ generate() ->
       delayfx => delayfx(),
       modfx => modfx(),
       eq => eq(),
-      arp => arp()
-      %kbd_oct => kbd_oct(),
+      arp => arp(),
+      kbd_oct => kbd_oct()
       %voices => voices(Mode)
      }.
 
@@ -74,3 +74,5 @@ arp() ->
       gate_time => rrange(0, 100),
       resolution => rnd(enums:values_of(arp_reso)),
       swing => rrange(-100, 100)}.
+
+kbd_oct() -> rrange(-3, 3).
