@@ -84,5 +84,6 @@ voices(double) ->
 
 timbre() ->
     #{midi_ch => global,
-      assign_mode => rnd(enums:values_of(timbre_assign))
+      assign_mode => rnd(enums:values_of(timbre_assign)),
+      eg2_reset => onoff()
      }.
