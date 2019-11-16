@@ -87,5 +87,6 @@ timbre() ->
       assign_mode => rnd(enums:values_of(timbre_assign)),
       eg2_reset => onoff(),
       eg1_reset => onoff(),
-      trigger_mode => rnd(enums:values_of(timbre_trigger))
+      trigger_mode => rnd(enums:values_of(timbre_trigger)),
+      key_priority => last
      }.
