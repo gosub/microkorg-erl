@@ -86,5 +86,6 @@ timbre() ->
     #{midi_ch => global,
       assign_mode => rnd(enums:values_of(timbre_assign)),
       eg2_reset => onoff(),
-      eg1_reset => onoff()
+      eg1_reset => onoff(),
+      trigger_mode => rnd(enums:values_of(timbre_trigger))
      }.
