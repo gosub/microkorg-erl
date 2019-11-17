@@ -90,7 +90,8 @@ timbre() ->
       trigger_mode => rnd(enums:values_of(timbre_trigger)),
       key_priority => last,
       unison_detune => rrange(0, 99),
-      pitch => pitch()
+      pitch => pitch(),
+      osc1 => osc1()
      }.
 
 pitch() ->
@@ -98,3 +99,9 @@ pitch() ->
       bend => rrange(-12, 12),
       transpose => rrange(-24, 24),
       vibrato => rrange(-63, 63)}.
+
+osc1() ->
+    #{wave => rnd(enums:values_of(timbre1_wave)),
+      ctrl1 => r127(),
+      ctrl2 => r127(),
+      dwgs => rnd(128)}.
