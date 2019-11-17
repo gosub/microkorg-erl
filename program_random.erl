@@ -91,7 +91,8 @@ timbre() ->
       key_priority => last,
       unison_detune => rrange(0, 99),
       pitch => pitch(),
-      osc1 => osc1()
+      osc1 => osc1(),
+      osc2 => osc2()
      }.
 
 pitch() ->
@@ -105,3 +106,9 @@ osc1() ->
       ctrl1 => r127(),
       ctrl2 => r127(),
       dwgs => rnd(128)}.
+
+osc2() ->
+    #{modselect => rnd(enums:values_of(timbre2_modselect)),
+      wave => rnd(enums:values_of(timbre2_wave)),
+      semitone => rrange(-24, 24),
+      tune => rrange(-63, 63)}.
