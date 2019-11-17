@@ -89,5 +89,12 @@ timbre() ->
       eg1_reset => onoff(),
       trigger_mode => rnd(enums:values_of(timbre_trigger)),
       key_priority => last,
-      unison_detune => rrange(0, 99)
+      unison_detune => rrange(0, 99),
+      pitch => pitch()
      }.
+
+pitch() ->
+    #{tune => rrange(-50, 50),
+      bend => rrange(-12, 12),
+      transpose => rrange(-24, 24),
+      vibrato => rrange(-63, 63)}.
