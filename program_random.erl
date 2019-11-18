@@ -49,13 +49,13 @@ mode() ->
 delayfx() ->
     #{sync => onoff(),
       timebase => rnd(enums:values_of(delay_timebase)),
-      time => r127(),
-      depth => r127(),
+      time => r255(),
+      depth => r255(),
       type => rnd(enums:values_of(delay_type))}.
 
 modfx() ->
-    #{lfo_speed => r127(),
-      depth => r127(),
+    #{lfo_speed => r255(),
+      depth => r255(),
       type => rnd(enums:values_of(mod_type))}.
 
 eq() ->
@@ -106,8 +106,8 @@ pitch() ->
 
 osc1() ->
     #{wave => rnd(enums:values_of(timbre1_wave)),
-      ctrl1 => r127(),
-      ctrl2 => r127(),
+      ctrl1 => r255(),
+      ctrl2 => r255(),
       dwgs => rnd(128)}.
 
 osc2() ->
