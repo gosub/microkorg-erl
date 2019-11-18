@@ -92,7 +92,8 @@ timbre() ->
       unison_detune => rrange(0, 99),
       pitch => pitch(),
       osc1 => osc1(),
-      osc2 => osc2()
+      osc2 => osc2(),
+      porta_time => r127()
      }.
 
 pitch() ->
