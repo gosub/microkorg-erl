@@ -95,7 +95,8 @@ timbre() ->
       pitch => pitch(),
       osc1 => osc1(),
       osc2 => osc2(),
-      porta_time => r127()
+      porta_time => r127(),
+      mixer => mixer()
      }.
 
 pitch() ->
@@ -115,3 +116,8 @@ osc2() ->
       wave => rnd(enums:values_of(timbre2_wave)),
       semitone => rrange(-24, 24),
       tune => rrange(-63, 63)}.
+
+mixer() ->
+    #{osc1_lvl => r255(),
+      osc2_lvl => r255(),
+      noise => r255()}.
