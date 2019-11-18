@@ -25,6 +25,8 @@ r01() -> rnd(2) - 1.
 
 r127() -> rnd(128) - 1.
 
+r255() -> rnd(256) - 1.
+
 rrange(Min, Max) ->
     Min + rnd(Max-Min+1) - 1.
 
