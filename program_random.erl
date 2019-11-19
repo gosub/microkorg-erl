@@ -98,7 +98,8 @@ timbre() ->
       porta_time => r127(),
       mixer => mixer(),
       filter => filter(),
-      amp => amp()
+      amp => amp(),
+      eg1 => eg()
      }.
 
 pitch() ->
@@ -139,3 +140,9 @@ amp() ->
       distortion => onoff(),
       velocity_sense => rrange(-64,64),
       key_track => rrange(-63, 63)}.
+
+eg() ->
+    #{attack => r255(),
+      decay => r255(),
+      sustain => r255(),
+      release => r255()}.
