@@ -99,7 +99,8 @@ timbre() ->
       mixer => mixer(),
       filter => filter(),
       amp => amp(),
-      eg1 => eg()
+      eg1 => eg(),
+      eg2 => eg()
      }.
 
 pitch() ->
