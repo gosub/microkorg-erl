@@ -218,4 +218,5 @@ values_of(timbre_assign) -> {mono, poly, unison};
 values_of(timbre_trigger) -> {single, multi};
 values_of(timbre1_wave) -> {saw, pulse, triangle, sin, vox, dwgs, noise, audioin};
 values_of(timbre2_modselect) -> {off, ring, sync, ringsync};
-values_of(timbre2_wave) -> {saw, square, triange}.
+values_of(timbre2_wave) -> {saw, square, triange};
+values_of(filter_type) -> {'24LPF', '12LPF', '12BPF', '12HPF'}.

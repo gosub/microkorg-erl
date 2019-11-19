@@ -96,7 +96,8 @@ timbre() ->
       osc1 => osc1(),
       osc2 => osc2(),
       porta_time => r127(),
-      mixer => mixer()
+      mixer => mixer(),
+      filter => filter()
      }.
 
 pitch() ->
@@ -121,3 +122,11 @@ mixer() ->
     #{osc1_lvl => r255(),
       osc2_lvl => r255(),
       noise => r255()}.
+
+filter() ->
+    #{type => rnd(enums:values_of(filter_type)),
+      cutoff => r255(),
+      reso => r255(),
+      eg1_intensity => rrange(-63, 63),
+      velocity_sense => rrange(-64,64),
+      key_track => rrange(-63, 63)}.
