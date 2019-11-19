@@ -97,7 +97,8 @@ timbre() ->
       osc2 => osc2(),
       porta_time => r127(),
       mixer => mixer(),
-      filter => filter()
+      filter => filter(),
+      amp => amp()
      }.
 
 pitch() ->
@@ -128,5 +129,13 @@ filter() ->
       cutoff => r255(),
       reso => r255(),
       eg1_intensity => rrange(-63, 63),
+      velocity_sense => rrange(-64,64),
+      key_track => rrange(-63, 63)}.
+
+amp() ->
+    #{level => r255(),
+      pan => rrange(-64,64),
+      sw => r01(),
+      distortion => onoff(),
       velocity_sense => rrange(-64,64),
       key_track => rrange(-63, 63)}.
