@@ -102,7 +102,8 @@ timbre() ->
       eg1 => eg(),
       eg2 => eg(),
       lfo1 => lfo(1),
-      lfo2 => lfo(2)
+      lfo2 => lfo(2),
+      patch => patch()
      }.
 
 pitch() ->
@@ -163,3 +164,7 @@ lfo(2) ->
       tempo_sync => onoff(),
       sync_note => rnd(enums:values_of(lfo_syncnote))}.
 
+
+patch() ->
+    {patch_cable(), patch_cable(),
+     patch_cable(), patch_cable()}.
