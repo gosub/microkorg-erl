@@ -100,7 +100,8 @@ timbre() ->
       filter => filter(),
       amp => amp(),
       eg1 => eg(),
-      eg2 => eg()
+      eg2 => eg(),
+      lfo1 => lfo(1)
      }.
 
 pitch() ->
@@ -147,3 +148,10 @@ eg() ->
       decay => r255(),
       sustain => r255(),
       release => r255()}.
+
+lfo(1) ->
+    #{keysync => rnd(enums:values_of(lfo_keysync)),
+      wave => rnd(enums:values_of(lfo1_wave)),
+      freq => r255(),
+      tempo_sync => onoff(),
+      sync_note => rnd(enums:values_of(lfo_syncnote))}.
