@@ -168,3 +168,8 @@ lfo(2) ->
 patch() ->
     {patch_cable(), patch_cable(),
      patch_cable(), patch_cable()}.
+
+patch_cable() ->
+    #{destination => rnd(enums:values_of(cable_dest)),
+      source => rnd(enums:values_of(cable_source)),
+      intensity => rrange(-63, 63)}.
