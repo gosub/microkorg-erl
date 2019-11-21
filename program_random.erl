@@ -1,6 +1,5 @@
 -module(program_random).
-%-export([]).
--compile(export_all).
+-export([generate/0]).
 
 generate() ->
     Mode = mode(),
