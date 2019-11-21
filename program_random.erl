@@ -50,13 +50,13 @@ mode() ->
 delayfx() ->
     #{sync => onoff(),
       timebase => rnd(enums:values_of(delay_timebase)),
-      time => r255(),
-      depth => r255(),
+      time => r127(),
+      depth => r127(),
       type => rnd(enums:values_of(delay_type))}.
 
 modfx() ->
-    #{lfo_speed => r255(),
-      depth => r255(),
+    #{lfo_speed => r127(),
+      depth => r127(),
       type => rnd(enums:values_of(mod_type))}.
 
 eq() ->
@@ -116,9 +116,9 @@ pitch() ->
 
 osc1() ->
     #{wave => rnd(enums:values_of(timbre1_wave)),
-      ctrl1 => r255(),
-      ctrl2 => r255(),
-      dwgs => rnd(128)}.
+      ctrl1 => r127(),
+      ctrl2 => r127(),
+      dwgs => rnd(64)}.
 
 osc2() ->
     #{modselect => rnd(enums:values_of(timbre2_modselect)),
@@ -127,42 +127,42 @@ osc2() ->
       tune => rrange(-63, 63)}.
 
 mixer() ->
-    #{osc1_lvl => r255(),
-      osc2_lvl => r255(),
-      noise => r255()}.
+    #{osc1_lvl => r127(),
+      osc2_lvl => r127(),
+      noise => r127()}.
 
 filter() ->
     #{type => rnd(enums:values_of(filter_type)),
-      cutoff => r255(),
-      reso => r255(),
+      cutoff => r127(),
+      reso => r127(),
       eg1_intensity => rrange(-63, 63),
-      velocity_sense => rrange(-64,64),
+      velocity_sense => rrange(-64,63),
       key_track => rrange(-63, 63)}.
 
 amp() ->
-    #{level => r255(),
-      pan => rrange(-64,64),
+    #{level => r127(),
+      pan => rrange(-64,63),
       sw => r01(),
       distortion => onoff(),
-      velocity_sense => rrange(-64,64),
+      velocity_sense => rrange(-64,63),
       key_track => rrange(-63, 63)}.
 
 eg() ->
-    #{attack => r255(),
-      decay => r255(),
-      sustain => r255(),
-      release => r255()}.
+    #{attack => r127(),
+      decay => r127(),
+      sustain => r127(),
+      release => r127()}.
 
 lfo(1) ->
     #{keysync => rnd(enums:values_of(lfo_keysync)),
       wave => rnd(enums:values_of(lfo1_wave)),
-      freq => r255(),
+      freq => r127(),
       tempo_sync => onoff(),
       sync_note => rnd(enums:values_of(lfo_syncnote))};
 lfo(2) ->
     #{keysync => rnd(enums:values_of(lfo_keysync)),
       wave => rnd(enums:values_of(lfo2_wave)),
-      freq => r255(),
+      freq => r127(),
       tempo_sync => onoff(),
       sync_note => rnd(enums:values_of(lfo_syncnote))}.
 
