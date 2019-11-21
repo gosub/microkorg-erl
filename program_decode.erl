@@ -44,7 +44,8 @@ gain(N) when N >= 64-12, N =< 64+12 -> N-64.
 
 arp(<<Tempo:16, OnOff:1, Latch:1, Target:2, 0:3, KeySync:1,
       Range:4, Type:4, GateTime:8, Resolution:8, Swing/signed-integer>>)
-   when GateTime =< 100, Swing >= -100, Swing =< 100 ->
+   when Tempo >= 20, Tempo =< 300, GateTime =< 100,
+	Swing >= -100, Swing =< 100 ->
     #{tempo => Tempo,
       onoff => enums:onoff(OnOff),
       latch => enums:onoff(Latch),

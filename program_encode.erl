@@ -47,7 +47,7 @@ gain(N) when abs(N) =< 12 -> N+64.
 arp(#{tempo:=Tempo, onoff:=OnOff, latch:=Latch, target:=Target,
       keysync:=KeySync, range:=Range, type:=Type, gate_time:=GateTime,
       resolution:=Reso, swing:=Swing})
-  when GateTime =< 100, abs(Swing) =< 100 ->
+  when Tempo >= 20, Tempo =< 300, GateTime =< 100, abs(Swing) =< 100 ->
     OnOffData = enums:onoff(OnOff),
     LatchData = enums:onoff(Latch),
     TargetData = enums:arp_target(Target),

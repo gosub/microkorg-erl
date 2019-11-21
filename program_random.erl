@@ -68,12 +68,12 @@ eq() ->
 gain() -> rrange(-12, 12).
 
 arp() ->
-    #{tempo => rrange(0, 65535), % 16bit range
+    #{tempo => rrange(20, 300),
       onoff => onoff(),
       latch => onoff(),
       target => rnd(enums:values_of(arp_target)),
       keysync => onoff(),
-      range => rrange(1,16),
+      range => rrange(1,4),
       type => rnd(enums:values_of(arp_type)),
       gate_time => rrange(0, 100),
       resolution => rnd(enums:values_of(arp_reso)),
