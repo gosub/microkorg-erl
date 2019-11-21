@@ -30,9 +30,25 @@ rrange(Min, Max) ->
 
 onoff() -> rnd({on, off}).
 
-% TODO: funny name generator
+% funny name generator
+
 name() ->
-    <<"            ">>.
+    name(rrange(2,4)).
+
+name(2) ->
+    <<(sil()):2/bytes, (sil()):2/bytes, "        ">>;
+name(3) ->
+    <<(sil()):2/bytes, (sil()):2/bytes, (sil()):2/bytes, "      ">>;
+name(4) ->
+    <<(sil()):2/bytes, (sil()):2/bytes,
+      (sil()):2/bytes, (sil()):2/bytes, "    ">>.
+
+sil() ->
+    Voc = rnd({$a, $e, $i, $o, $u}),
+    Con = rnd(list_to_tuple("bcdfglmnprstvz")),
+    <<Con, Voc>>.
+
+% end funny name generator
 
 arpctrl() ->
     #{len => rnd(8),
