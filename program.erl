@@ -26,5 +26,5 @@ write_random() ->
     Program = random(),
     #{name := BinName} = Program,
     Name = string:strip(binary_to_list(BinName)) ++ ".syx",
-    Res = write_random(Name),
+    Res = write_file(Name, Program),
     {Res, Name}.
