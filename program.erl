@@ -1,5 +1,5 @@
 -module(program).
--export([to_map/1, from_map/1, read_file/1, write_file/2]).
+-export([to_map/1, from_map/1, read_file/1, write_file/2, random/0]).
 
 to_map(ProgramData) ->
     program_decode:to_map(ProgramData).
@@ -14,3 +14,6 @@ read_file(SysexFile) ->
 write_file(SysexFile, ProgramMap) ->
     ProgramData = from_map(ProgramMap),
     sysex:encode_file(SysexFile, ProgramData).
+
+random() ->
+    program_random:generate().
