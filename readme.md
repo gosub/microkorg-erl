@@ -4,16 +4,23 @@ an erlang module collection for reading and writing microkorg patches
 
 ## How to use the **program** module
 
-The **program** module has two main functions:
+The **program** module has two functions for manipulating programs:
 
 - program:read_file(SysexFile) -> ProgramMap
 - program:write_file(SysexFile, ProgramMap) -> ok
 
+And one function (with two variants) to generate random programs:
+
+- program:write_random(SysexFile) -> ok
+- program:write_random() -> {ok, Filename}
+
 A program, in the microkorg documentantation, is the equivalent of a patch (like A11, A24, B12 etc). Sending a specific sysex command to the microkorg, makes it respond with the current program as sysex data. **program:read_file** transform a .syx encoded file into an explicit map (ProgramMap). The map can be re-encoded (as-is or modified) with **program:write_file**, that produces a .syx file.
+
+The **program:write_random** function saves a .syx file with a random patch (trying to have reasonable values). The variant without parameters uses the randomly generated patch name (f.e. "budino.syx").
 
 ## Warning
 
-the **program** module still does not encode/decode vocoder patches.
+the **program** module still doesn't neither encode/decode nor randomly generates vocoder patches.
 
 ## How to receive and send .syx patch files
 
