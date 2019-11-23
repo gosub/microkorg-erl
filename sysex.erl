@@ -1,6 +1,7 @@
 -module(sysex).
 -export([trim/1, untrim/1, scramble/1, unscramble/1,
-	encode/1, decode/1, encode_file/2, decode_file/1]).
+	encode/1, decode/1, encode_file/2, decode_file/1,
+	request/2]).
 
 
 trim(Sysex) ->
@@ -93,3 +94,13 @@ encode(Data) ->
 
 encode_file(SysexFile, Data) ->
     file:write_file(SysexFile, encode(Data)).
+
+
+% MIDI REQUEST MESSAGES
+
+request(device_inquiry, MidiCh) -> <<16#F07E:16, MidiCh:8, 16#0601F7:24>>;
+request(current_program_data_dump, MidiCh) -> generic_sysex_request(16#10, MidiCh);
+request(program_data_dump, MidiCh) -> generic_sysex_request(16#1C, MidiCh).
+
+generic_sysex_request(FunctionID, MidiCh) ->
+    <<16#F042:16, (16#30 + MidiCh):8, 16#58, FunctionID, 16#F7>>.
