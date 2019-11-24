@@ -1,7 +1,7 @@
 -module(sysex).
 -export([trim/1, untrim/1, scramble/1, unscramble/1,
 	encode/1, decode/1, encode_file/2, decode_file/1,
-	request/1, request/2]).
+	request/1, request/2, request/3]).
 
 
 trim(Sysex) ->
@@ -106,6 +106,13 @@ request(current_program_data_dump, MidiCh) -> generic_request(16#10, MidiCh);
 request(program_data_dump, MidiCh) -> generic_request(16#1C, MidiCh);
 request(global_data_dump, MidiCh) -> generic_request(16#0E, MidiCh);
 request(all_data_dump, MidiCh) -> generic_request(16#0F, MidiCh).
+
+request(master_volume, Volume, any)
+  when Volume >= 0, Volume =< 65535 ->
+<<16#F0, 16#7F, 16#7F, 16#04, 16#01, Volume:16/little, 16#F7>>;
+request(master_volume, Volume, MidiCh)
+  when Volume >= 0, Volume =< 65535 ->
+    <<16#F0, 16#7F, MidiCh:8, 16#04, 16#01, Volume:16/little, 16#F7>>.
 
 generic_request(FunctionID, MidiCh) ->
     <<16#F042:16, (16#30 + MidiCh):8, 16#58, FunctionID, 16#F7>>.
