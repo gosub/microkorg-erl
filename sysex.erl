@@ -112,7 +112,14 @@ request(master_volume, Volume, any)
 <<16#F0, 16#7F, 16#7F, 16#04, 16#01, Volume:16/little, 16#F7>>;
 request(master_volume, Volume, MidiCh)
   when Volume >= 0, Volume =< 65535 ->
-    <<16#F0, 16#7F, MidiCh:8, 16#04, 16#01, Volume:16/little, 16#F7>>.
+    <<16#F0, 16#7F, MidiCh:8, 16#04, 16#01, Volume:16/little, 16#F7>>;
+% master fine tune
+request(master_fine_tune, FineTune, any)
+  when FineTune >= 0, FineTune =< 32639 ->
+    <<16#F0, 16#7F, 16#7F, 16#04, 16#03, FineTune:16/little, 16#F7>>;
+request(master_fine_tune, FineTune, MidiCh)
+  when FineTune >= 0, FineTune =< 32639 ->
+    <<16#F0, 16#7F, MidiCh:8, 16#04, 16#03, FineTune:16/little, 16#F7>>.
 
 generic_request(FunctionID, MidiCh) ->
     <<16#F042:16, (16#30 + MidiCh):8, 16#58, FunctionID, 16#F7>>.
