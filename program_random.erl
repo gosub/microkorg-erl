@@ -1,5 +1,5 @@
 -module(program_random).
--export([generate/0]).
+-export([generate/0, merge/2]).
 -import(utils, [rnd/1]).
 
 generate() ->
@@ -184,3 +184,16 @@ patch_cable() ->
     #{destination => rnd(enums:values_of(cable_dest)),
       source => rnd(enums:values_of(cable_source)),
       intensity => rrange(-63, 63)}.
+
+merge(ProgramA, ProgramB) ->
+    Merged = utils:deep_random_merge(ProgramA, ProgramB),
+    constrain_voice_count(Merged).
+
+constrain_voice_count(Program) ->
+    #{voices := Voices, voice_mode := VoiceMode} = Program,
+    constrain_voice_count(Program, VoiceMode, Voices).
+
+constrain_voice_count(Program, single, [A, _]) ->
+    maps:merge(Program, #{voices => [A]});
+constrain_voice_count(Program, _, _) ->
+    Program.
