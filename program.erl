@@ -1,6 +1,6 @@
 -module(program).
 -export([to_map/1, from_map/1, read_file/1, write_file/2, write_file/1,
-	 random/0, write_random/1, write_random/0, set_name/2]).
+	 random/0, write_random/1, write_random/0, set_name/2, merge/2]).
 
 to_map(ProgramData) ->
     program_decode:to_map(ProgramData).
@@ -38,3 +38,6 @@ set_name(Program, NewName)
   when is_map(Program), is_list(NewName) ->
     NewNameMap = #{name => list_to_binary(string:pad(NewName, 12))},
     maps:merge(Program, NewNameMap).
+
+merge(ProgramA, ProgramB) ->
+    program_random:merge(ProgramA, ProgramB).
