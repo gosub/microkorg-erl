@@ -26,3 +26,16 @@ list_to_fun(List) ->
 	    {ok, N} = utils:find(A, List),
 	    N
     end.
+
+deep_random_merge(A, B) when is_map(A), is_map(B) ->
+    Keys = maps:keys(A),
+    maps:from_list([{Key, deep_random_merge(maps:get(Key, A), maps:get(Key, B))} || Key <- Keys]);
+deep_random_merge([], []) -> [];
+deep_random_merge([], B) when is_list(B) ->
+    B;
+deep_random_merge(A, []) when is_list(A) ->
+    A;
+deep_random_merge([HeadA | RestA], [HeadB | RestB]) ->
+    [deep_random_merge(HeadA, HeadB) | deep_random_merge(RestA, RestB)];
+deep_random_merge(A, B) ->
+    rnd({A, B}).
