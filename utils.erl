@@ -1,5 +1,11 @@
 -module(utils).
--export([find/2, list_to_fun/1]).
+-export([find/2, list_to_fun/1, rnd/1, deep_random_merge/2]).
+
+
+rnd(N) when is_integer(N) ->
+    rand:uniform(N);
+rnd(T) when is_tuple(T) ->
+    element(rnd(tuple_size(T)), T).
 
 
 find(E, L) ->

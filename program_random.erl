@@ -1,5 +1,6 @@
 -module(program_random).
 -export([generate/0]).
+-import(utils, [rnd/1]).
 
 generate() ->
     Mode = mode(),
@@ -15,11 +16,6 @@ generate() ->
       kbd_oct => kbd_oct(),
       voices => voices(Mode)
      }.
-
-rnd(N) when is_integer(N) ->
-    rand:uniform(N);
-rnd(T) when is_tuple(T) ->
-    element(rnd(tuple_size(T)), T).
 
 r01() -> rnd(2) - 1.
 
