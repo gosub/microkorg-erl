@@ -96,7 +96,7 @@ encode_file(SysexFile, Data) ->
     file:write_file(SysexFile, encode(Data)).
 
 
-% MIDI REQUEST MESSAGES
+% SYSTEM EXCLUSIVE REQUEST MESSAGES
 
 request(Request) ->
     request(Request, 0).
