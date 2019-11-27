@@ -1,7 +1,7 @@
 -module(sysex).
 -export([trim/1, untrim/1, scramble/1, unscramble/1,
 	encode/1, decode/1, encode_file/2, decode_file/1,
-	request/1, request/2, request/3]).
+	request/1, request/2, request/3, function_id/1]).
 
 
 trim(Sysex) ->
@@ -95,6 +95,13 @@ encode(Data) ->
 encode_file(SysexFile, Data) ->
     file:write_file(SysexFile, encode(Data)).
 
+% SYSTEM EXCLUSIVE FUNCTION IDs
+
+function_id(16#40) -> current_program_data_dump;
+function_id(16#4C) -> program_data_dump;
+function_id(16#51) -> global_data_dump;
+function_id(16#50) -> all_data_dump;
+function_id(16#11) -> program_write_request.
 
 % SYSTEM EXCLUSIVE REQUEST MESSAGES
 
