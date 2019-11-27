@@ -101,7 +101,12 @@ function_id(16#40) -> current_program_data_dump;
 function_id(16#4C) -> program_data_dump;
 function_id(16#51) -> global_data_dump;
 function_id(16#50) -> all_data_dump;
-function_id(16#11) -> program_write_request.
+function_id(16#11) -> program_write_request;
+function_id(current_program_data_dump) -> 16#40;
+function_id(program_data_dump) -> 16#4C;
+function_id(global_data_dump) -> 16#51;
+function_id(all_data_dump) -> 16#50;
+function_id(program_write_request) -> 16#11.
 
 % SYSTEM EXCLUSIVE REQUEST MESSAGES
 
