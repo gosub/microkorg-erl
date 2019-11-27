@@ -95,6 +95,7 @@ encode(Data) ->
 encode_file(SysexFile, Data) ->
     file:write_file(SysexFile, encode(Data)).
 
+
 % SYSTEM EXCLUSIVE FUNCTION IDs
 
 function_id(16#40) -> current_program_data_dump;
@@ -107,6 +108,7 @@ function_id(program_data_dump) -> 16#4C;
 function_id(global_data_dump) -> 16#51;
 function_id(all_data_dump) -> 16#50;
 function_id(program_write_request) -> 16#11.
+
 
 % SYSTEM EXCLUSIVE REQUEST MESSAGES
 
