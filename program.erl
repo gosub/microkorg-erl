@@ -9,12 +9,12 @@ from_map(ProgramMap) ->
     program_encode:from_map(ProgramMap).
 
 read_file(SysexFile) ->
-    ProgramData = sysex:decode_file(SysexFile),
+    {current_program_data_dump, ProgramData} = sysex:decode_file(SysexFile),
     to_map(ProgramData).
 
 write_file(SysexFile, ProgramMap) ->
     ProgramData = from_map(ProgramMap),
-    sysex:encode_file(SysexFile, ProgramData).
+    sysex:encode_file(SysexFile, current_program_data_dump, ProgramData).
 
 write_file(ProgramMap) ->
     #{name := Name} = ProgramMap,
