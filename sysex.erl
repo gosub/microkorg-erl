@@ -5,9 +5,9 @@
 
 
 trim(Sysex) ->
-    PayloadSize = byte_size(Sysex)-6,
-    <<16#F0,"B0X@",Payload:PayloadSize/bytes,16#F7>> = Sysex,
-    Payload.
+    Size = byte_size(Sysex)-6,
+    <<16#F0, "B0X", Function:8, Payload:Size/bytes, 16#F7>> = Sysex,
+    {function_id(Function), Payload}.
 
 
 untrim(Payload) ->
