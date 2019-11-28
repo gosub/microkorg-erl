@@ -80,7 +80,8 @@ scramble(<<X1:1,B1:7>>) ->
 
 
 decode(SysexData) ->
-    unscramble(trim(SysexData)).
+    {Function, Data} = trim(SysexData),
+    {Function, unscramble(Data)}.
 
 
 decode_file(SysexFile) ->
