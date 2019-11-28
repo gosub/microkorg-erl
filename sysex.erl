@@ -89,12 +89,12 @@ decode_file(SysexFile) ->
     decode(SysexData).
 
 
-encode(Data) ->
-    untrim(scramble(Data)).
+encode(Function, Data) ->
+    untrim(scramble(Data), Function).
 
 
-encode_file(SysexFile, Data) ->
-    file:write_file(SysexFile, encode(Data)).
+encode_file(SysexFile, Function, Data) ->
+    file:write_file(SysexFile, encode(Function, Data)).
 
 
 % SYSTEM EXCLUSIVE FUNCTION IDs
