@@ -10,8 +10,8 @@ trim(Sysex) ->
     {function_id(Function), Payload}.
 
 
-untrim(Payload) ->
-    <<16#F0, "B0X@", Payload/bytes, 16#F7>>.
+untrim(Payload, Function) ->
+    <<16#F0, "B0X", (function_id(Function)):8, Payload/bytes, 16#F7>>.
 
 
 unscramble(<<>>) -> <<>>;
