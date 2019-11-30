@@ -183,8 +183,8 @@ vocoder_to_map(<<MidiCh/signed-integer,
       audioin1_hpfgate => enums:onoff(AudioIn1HPFGate),
       porta_time => PortamentoTime,
       mixer => vocoder_mixer(Mixer),
+      audioin1 => vocoder_audioin1(AudioIn1),
       % TODO: complete decoding of remaining parameters
-      audioin1 => AudioIn1,
       filter => Filter,
       amp => Amp,
       eg2 => EG2,
@@ -198,3 +198,8 @@ vocoder_mixer(<<Osc1Level:8, Ext1Level:8, Noise:8>>) ->
     #{osc1_lvl => Osc1Level,
       ext1_lvl => Ext1Level,
       noise => Noise}.
+
+vocoder_audioin1(<<HPFLevel:8, GateSense:8, Threshold:8>>) ->
+    #{hpf_lvl => HPFLevel,
+      gate_sense => GateSense,
+      threshold => Threshold}.
