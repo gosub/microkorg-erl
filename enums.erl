@@ -3,7 +3,8 @@
 	 mod_type/1, hifreqs/1, lofreqs/1, arp_target/1, arp_type/1,
 	 arp_reso/1, timbre_assign/1, timbre_trigger/1, timbre1_wave/1,
 	 timbre2_modselect/1, timbre2_wave/1, filter_type/1, lfo_keysync/1,
-	 lfo_wave/2, lfo_syncnote/1, cable_dest/1, cable_source/1, values_of/1]).
+	 lfo_wave/2, lfo_syncnote/1, cable_dest/1, cable_source/1, values_of/1,
+	 vocoder_filter_modsource/1]).
 
 -define(SCALE_KEY, ['C','C#','D','D#','E','F',
 		    'F#','G','G#','A','A#','B']).
@@ -226,3 +227,18 @@ values_of(lfo2_wave) -> {saw, squ, sin, sh};
 values_of(lfo_syncnote) -> list_to_tuple(?LFO_SYNCNOTE);
 values_of(cable_dest) -> {pitch, osc2pitch, osc1ctrl1, noise, cutoff, amp, pan, lfo2_freq};
 values_of(cable_source) -> {eg1, eg2, lfo1, lfo2, velocity, kbd_track, pitch_bend, mod}.
+
+vocoder_filter_modsource(1) -> aeg;
+vocoder_filter_modsource(2) -> lfo1;
+vocoder_filter_modsource(3) -> lfo2;
+vocoder_filter_modsource(4) -> velocity;
+vocoder_filter_modsource(5) -> kbd_track;
+vocoder_filter_modsource(6) -> pitch_bend;
+vocoder_filter_modsource(7) -> mod;
+vocoder_filter_modsource(aeg) -> 1;
+vocoder_filter_modsource(lfo1) -> 2;
+vocoder_filter_modsource(lfo2) -> 3;
+vocoder_filter_modsource(velocity) -> 4;
+vocoder_filter_modsource(kbd_track) -> 5;
+vocoder_filter_modsource(pitch_bend) -> 6;
+vocoder_filter_modsource(mod) -> 7.

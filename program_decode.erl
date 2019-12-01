@@ -184,8 +184,8 @@ vocoder_to_map(<<MidiCh/signed-integer,
       porta_time => PortamentoTime,
       mixer => vocoder_mixer(Mixer),
       audioin1 => vocoder_audioin1(AudioIn1),
+      filter => vocoder_filter(Filter),
       % TODO: complete decoding of remaining parameters
-      filter => Filter,
       amp => Amp,
       eg2 => EG2,
       lfo1 => LFO1,
@@ -203,3 +203,23 @@ vocoder_audioin1(<<HPFLevel:8, GateSense:8, Threshold:8>>) ->
     #{hpf_lvl => HPFLevel,
       gate_sense => GateSense,
       threshold => Threshold}.
+
+vocoder_filter(<<Shift:8, Cutoff:8, Resonance:8,
+		 ModSource:8, Intensity:8, EFSense:8>>) 
+  when Shift =< 4, abs(Cutoff-64) =< 63, Resonance =< 127,
+       abs(Intensity-64) =< 63, EFSense =< 127 ->
+    #{shift => vocoder_filter_shift(Shift),
+      cutoff => Cutoff - 64,
+      resonance => Resonance,
+      modsource => enums:vocoder_filter_modsource(ModSource),
+      intensity => Intensity - 64,
+      efsense => vocoder_filter_efsense(EFSense)}.
+
+vocoder_filter_shift(0) -> 0;
+vocoder_filter_shift(1) -> 1;
+vocoder_filter_shift(2) -> 2;
+vocoder_filter_shift(3) -> -1;
+vocoder_filter_shift(4) -> -2.
+
+vocoder_filter_efsense(127) -> hold;
+vocoder_filter_efsense(N) -> N.
