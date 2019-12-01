@@ -185,8 +185,8 @@ vocoder_to_map(<<MidiCh/signed-integer,
       mixer => vocoder_mixer(Mixer),
       audioin1 => vocoder_audioin1(AudioIn1),
       filter => vocoder_filter(Filter),
+      amp => vocoder_amp(Amp),
       % TODO: complete decoding of remaining parameters
-      amp => Amp,
       eg2 => EG2,
       lfo1 => LFO1,
       lfo2 => LFO2,
@@ -223,3 +223,11 @@ vocoder_filter_shift(4) -> -2.
 
 vocoder_filter_efsense(127) -> hold;
 vocoder_filter_efsense(N) -> N.
+
+vocoder_amp(<<Level:8, DirectLevel:8, 0:7, Distortion:1, VelSense:8, KeyTrack:8>>)
+  when Level =< 127, DirectLevel =< 127, abs(KeyTrack-64) =< 63 ->
+    #{level => Level,
+      direct_level => DirectLevel,
+      distortion => enums:onoff(Distortion),
+      velocity_sense => VelSense - 64,
+      key_track => KeyTrack - 64}.
