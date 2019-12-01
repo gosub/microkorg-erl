@@ -188,8 +188,8 @@ vocoder_to_map(<<MidiCh/signed-integer,
       amp => vocoder_amp(Amp),
       eg2 => timbre_eg(EG2),
       lfo1 => timbre_lfo(1, LFO1),
+      lfo2 => timbre_lfo(2, LFO2),
       % TODO: complete decoding of remaining parameters
-      lfo2 => LFO2,
       ch_levels => ChLevels,
       pan_levels => PanLeves,
       hold_levels => HoldLevels}.
