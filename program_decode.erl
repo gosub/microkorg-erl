@@ -190,8 +190,9 @@ vocoder_to_map(<<MidiCh/signed-integer,
       lfo1 => timbre_lfo(1, LFO1),
       lfo2 => timbre_lfo(2, LFO2),
       ch_levels => binary_to_list(ChLevels),
+      pan_levels => lists:map(fun (X) -> X-64 end,
+			      binary_to_list(PanLeves)),
       % TODO: complete decoding of remaining parameters
-      pan_levels => PanLeves,
       hold_levels => HoldLevels}.
 
 vocoder_mixer(<<Osc1Level:8, Ext1Level:8, Noise:8>>) ->
