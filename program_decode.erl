@@ -192,8 +192,7 @@ vocoder_to_map(<<MidiCh/signed-integer,
       ch_levels => binary_to_list(ChLevels),
       pan_levels => lists:map(fun (X) -> X-64 end,
 			      binary_to_list(PanLeves)),
-      % TODO: complete decoding of remaining parameters
-      hold_levels => HoldLevels}.
+      hold_levels => [X || <<X:32/big-integer>> <= HoldLevels]}.
 
 vocoder_mixer(<<Osc1Level:8, Ext1Level:8, Noise:8>>) ->
     #{osc1_lvl => Osc1Level,
