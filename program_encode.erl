@@ -67,8 +67,7 @@ list_to_voices(double, [TimbreMap1, TimbreMap2]) ->
     <<Timbre1Data:108/bytes, Timbre2Data:108/bytes>>;
 list_to_voices(vocoder, [VocoderMap]) ->
     VocoderData = vocoder(VocoderMap),
-    Zero = 0,
-    <<VocoderData:104/bytes, Zero:112/bytes>>.
+    <<VocoderData:104/bytes, 0:(112*8)>>.
 
 timbre(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
 	 eg1_reset:=EG1Reset, trigger_mode:=TrigMode, key_priority:=KeyPrio,
