@@ -1,6 +1,6 @@
 -module(program_encode).
--export([from_map/1]).
-
+%-export([from_map/1]).
+-compile(export_all).
 from_map(#{name:=Name, arpctrl:=ArpCtrl, voice_mode:=VoiceMode,
 	   scale_key:=ScaleKey, scale_type:=ScaleType, delayfx:=DelayFx,
 	   modfx:=ModFx, eq:=Eq, arp:=Arp, kbd_oct:=KbdOctave,
