@@ -177,5 +177,11 @@ cable(#{destination:=Dest, source:=Source, intensity:=Intesity})
     IntData = Intesity +64,
     <<DestData:4, SourceData:4, IntData:8>>.
 
-vocoder(_) ->
-    <<>>.
+vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
+	  eg1_reset:=EG1Reset, trigger_mode:=TrigMode, key_priority:=KeyPrio,
+	  unison_detune:=UniDet, pitch:=Pitch, osc1:=Osc1,
+	  audioin1_hpfgate:=AudioIn1HPFGate, porta_time:=Porta, mixer:=Mixer,
+	  audioin1:=AudioIn1, filter:=Filter, amp:=Amp, eg2:=EG2, lfo1:=LFO1,
+	  lfo2:=LFO2, ch_levels:=ChLevels, pan_levels:=PanLevels,
+	  hold_levels:=HoldLevels}) ->
+    <<0:(104*8)>>.
