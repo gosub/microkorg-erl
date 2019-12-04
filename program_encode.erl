@@ -185,4 +185,5 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
 	  lfo2:=LFO2, ch_levels:=ChLevels, pan_levels:=PanLevels,
 	  hold_levels:=HoldLevels}) ->
     <<(midich(MidiCh))/signed-integer,
-      0:(103*8)>>.
+      (enums:timbre_assign(AssignMode)):2,
+      0:(103*8-2)>>.
