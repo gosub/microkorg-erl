@@ -184,4 +184,5 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
 	  audioin1:=AudioIn1, filter:=Filter, amp:=Amp, eg2:=EG2, lfo1:=LFO1,
 	  lfo2:=LFO2, ch_levels:=ChLevels, pan_levels:=PanLevels,
 	  hold_levels:=HoldLevels}) ->
-    <<0:(104*8)>>.
+    <<(midich(MidiCh))/signed-integer,
+      0:(103*8)>>.
