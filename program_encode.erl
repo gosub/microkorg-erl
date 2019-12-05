@@ -190,4 +190,5 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
       (enums:onoff(EG1Reset)):1,
       (enums:timbre_trigger(TrigMode)):1, 0:1,
       (keypriority(KeyPrio)):2,
-      0:(102*8)>>.
+      UniDet:8,
+      0:(101*8)>>.
