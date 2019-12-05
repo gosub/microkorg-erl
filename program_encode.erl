@@ -188,4 +188,5 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
       (enums:timbre_assign(AssignMode)):2,
       (enums:onoff(EG2Reset)):1,
       (enums:onoff(EG1Reset)):1,
-      0:(103*8-4)>>.
+      (enums:timbre_trigger(TrigMode)):1,
+      0:(103*8-5)>>.
