@@ -193,4 +193,5 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
       UniDet:8,
       (pitch(Pitch)):4/bytes,
       (osc1(Osc1)):5/bytes,
-      0:(92*8)>>.
+      0:7, (enums:onoff(AudioIn1HPFGate)):1,
+      0:(91*8)>>.
