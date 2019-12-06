@@ -192,4 +192,5 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
       (keypriority(KeyPrio)):2,
       UniDet:8,
       (pitch(Pitch)):4/bytes,
-      0:(97*8)>>.
+      (osc1(Osc1)):5/bytes,
+      0:(92*8)>>.
