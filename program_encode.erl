@@ -198,7 +198,8 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
       (vocoder_mixer(Mixer)):3/bytes,
       (vocoder_audioin1(AudioIn1)):3/bytes,
       (vocoder_filter(Filter)):6/bytes,
-      0:(77*8)>>.
+      (vocoder_amp(Amp)):5/bytes,
+      0:(72*8)>>.
 
 vocoder_mixer(#{osc1_lvl := Osc1Lvl,
 		ext1_lvl := Ext1Lvl,
@@ -225,3 +226,8 @@ vocoder_filter_shift(-2) -> 4.
 
 vocoder_filter_efsense(hold) -> 127;
 vocoder_filter_efsense(N) -> N.
+
+vocoder_amp(#{level:=Lvl, direct_level:=DirectLvl, distortion:=Dist,
+	      velocity_sense:=VelSense, key_track:=KeyTrack}) ->
+    <<Lvl:8, DirectLvl:8, 0:7, (enums:onoff(Dist)):1,
+      (VelSense + 64):8, (KeyTrack + 64):8>>.
