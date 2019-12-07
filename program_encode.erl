@@ -197,7 +197,8 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
       0:8, 0:1, Porta:7,
       (vocoder_mixer(Mixer)):3/bytes,
       (vocoder_audioin1(AudioIn1)):3/bytes,
-      0:(83*8)>>.
+      (vocoder_filter(Filter)):6/bytes,
+      0:(77*8)>>.
 
 vocoder_mixer(#{osc1_lvl := Osc1Lvl,
 		ext1_lvl := Ext1Lvl,
@@ -208,3 +209,19 @@ vocoder_audioin1(#{hpf_lvl := HPFLevel,
 		   gate_sense := GateSense,
 		   threshold := Threshold}) ->
     <<HPFLevel:8, GateSense:8, Threshold:8>>.
+
+vocoder_filter(#{shift:=Shift, cutoff:=Cutoff, resonance:=Reso,
+		 modsource:=ModSource, intensity:=Intesity,
+		 efsense:=EFSense}) ->
+    <<(vocoder_filter_shift(Shift)):8, (Cutoff+64):8, Reso:8,
+      (enums:vocoder_filter_modsource(ModSource)):8, (Intesity+64):8,
+      (vocoder_filter_efsense(EFSense)):8>>.
+
+vocoder_filter_shift(0) -> 0;
+vocoder_filter_shift(1) -> 1;
+vocoder_filter_shift(2) -> 2;
+vocoder_filter_shift(-1) -> 3;
+vocoder_filter_shift(-2) -> 4.
+
+vocoder_filter_efsense(hold) -> 127;
+vocoder_filter_efsense(N) -> N.
