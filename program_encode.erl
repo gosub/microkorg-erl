@@ -196,9 +196,15 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
       0:7, (enums:onoff(AudioIn1HPFGate)):1,
       0:8, 0:1, Porta:7,
       (vocoder_mixer(Mixer)):3/bytes,
-      0:(86*8)>>.
+      (vocoder_audioin1(AudioIn1)):3/bytes,
+      0:(83*8)>>.
 
 vocoder_mixer(#{osc1_lvl := Osc1Lvl,
 		ext1_lvl := Ext1Lvl,
 		noise := Noise}) ->
     <<Osc1Lvl:8, Ext1Lvl:8, Noise:8>>.
+
+vocoder_audioin1(#{hpf_lvl := HPFLevel,
+		   gate_sense := GateSense,
+		   threshold := Threshold}) ->
+    <<HPFLevel:8, GateSense:8, Threshold:8>>.
