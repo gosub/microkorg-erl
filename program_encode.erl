@@ -201,7 +201,8 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
       (vocoder_amp(Amp)):5/bytes,
       0:8, 0:8, 127:8, 0:8,
       (eg(EG2)):4/bytes,
-      0:(64*8)>>.
+      (lfo(1, LFO1)):3/bytes,
+      0:(61*8)>>.
 
 vocoder_mixer(#{osc1_lvl := Osc1Lvl,
 		ext1_lvl := Ext1Lvl,
