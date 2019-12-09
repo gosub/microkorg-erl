@@ -205,7 +205,7 @@ vocoder(#{midi_ch:=MidiCh, assign_mode:=AssignMode, eg2_reset:=EG2Reset,
       (lfo(2, LFO2)):3/bytes,
       (list_to_binary(ChLevels)):16/bytes,
       (panlevels(PanLevels)):16/bytes,
-      0:(42*8)>>.
+      (holdlevels(HoldLevels)):64/bytes>>.
 
 vocoder_mixer(#{osc1_lvl := Osc1Lvl,
 		ext1_lvl := Ext1Lvl,
@@ -240,3 +240,6 @@ vocoder_amp(#{level:=Lvl, direct_level:=DirectLvl, distortion:=Dist,
 
 panlevels(PanLevels) ->
     list_to_binary(lists:map(fun (X) -> X+64 end, PanLevels)).
+
+holdlevels(HoldLevels) ->
+    list_to_binary([<<X:32/big-integer>> || X <- HoldLevels]).
