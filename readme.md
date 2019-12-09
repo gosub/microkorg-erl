@@ -23,7 +23,7 @@ The function **program:merge** generates a child program from two parent program
 
 ## Warning
 
-the **program** module still doesn't neither encode/decode nor randomly generates vocoder patches.
+The **program** module can read and write vocoder patches, but still can't randomly generate them.
 
 ## How to receive and send .syx patch files
 
