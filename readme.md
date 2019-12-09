@@ -54,9 +54,7 @@ microkorg-erl is licensed under the GPL v.3
 
 ## Todo
 
-- TODO: random patch generator
-- TODO: complete program_decode:vocoder
-- TODO: complete program_encode:vocoder
-- TODO: patch mixer (mix two patches into one, randomly)
+- TODO: do not let program:merge operate on vocoder and non-vocoder patches
+- TODO: random vocoder patch generator
 - TODO: -module(all_programs).
 - TODO: -module(microkorg).
