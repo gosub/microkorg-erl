@@ -47,4 +47,15 @@ set_name(Program, NewName)
     maps:merge(Program, NewNameMap).
 
 merge(ProgramA, ProgramB) ->
-    program_random:merge(ProgramA, ProgramB).
+    ModeA = mode(ProgramA),
+    ModeB = mode(ProgramB),
+    case {ModeA, ModeB} of
+	{vocoder, vocoder} ->
+	    program_random:merge(ProgramA, ProgramB);
+	{vocoder, _} ->
+	    throw(unmergeable_voice_modes);
+	{_, vocoder} ->
+	    throw(unmergeable_voice_modes);
+	{_, _} ->
+	    program_random:merge(ProgramA, ProgramB)
+    end.
