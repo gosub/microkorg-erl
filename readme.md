@@ -1,4 +1,4 @@
-## microkorg-erl
+# microkorg-erl
 
 an erlang module collection for reading and writing microkorg patches
 
