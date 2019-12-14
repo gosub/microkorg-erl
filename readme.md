@@ -46,7 +46,7 @@ note: the patch can be played immediately after uploading it, but is not permane
 
 ## Author
 
-Giampaolo Guiducci
+Giampaolo Guiducci <giampaolo.guiducci@gmail.com>
 
 ## License
 
