@@ -212,7 +212,7 @@ patch_cable() ->
 % vocoder patch specific generators
 
 vocoder() ->
-    #{}.
+    #{midi_ch => global}.
 
 % random merging of two patches
 
