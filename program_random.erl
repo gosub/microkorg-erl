@@ -212,7 +212,8 @@ patch_cable() ->
 % vocoder patch specific generators
 
 vocoder() ->
-    #{midi_ch => global}.
+    #{midi_ch => global,
+      assign_mode => rnd(enums:values_of(timbre_assign))}.
 
 % random merging of two patches
 
