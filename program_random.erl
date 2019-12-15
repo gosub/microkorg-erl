@@ -17,6 +17,8 @@ generate() ->
       voices => voices(Mode)
      }.
 
+% generic values generators
+
 r01() -> rnd(2) - 1.
 
 r127() -> rnd(128) - 1.
@@ -184,6 +186,8 @@ patch_cable() ->
     #{destination => rnd(enums:values_of(cable_dest)),
       source => rnd(enums:values_of(cable_source)),
       intensity => rrange(-63, 63)}.
+
+% random merging of two patches
 
 merge(ProgramA, ProgramB) ->
     Merged = utils:deep_random_merge(ProgramA, ProgramB),
