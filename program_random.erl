@@ -1,8 +1,16 @@
 -module(program_random).
--export([generate/0, merge/2]).
+-export([generate/0, generate/1, merge/2]).
 -import(utils, [rnd/1]).
 
 generate() ->
+    generate_non_vocoder().
+
+generate(true) ->
+    generate_vocoder();
+generate(false) ->
+    generate_non_vocoder().
+
+generate_non_vocoder() ->
     Mode = mode(),
     #{name => name(),
       arpctrl => arpctrl(),
@@ -15,6 +23,20 @@ generate() ->
       arp => arp(),
       kbd_oct => kbd_oct(),
       voices => voices(Mode)
+     }.
+
+generate_vocoder() ->
+    #{name => name(),
+      arpctrl => arpctrl(),
+      voice_mode => vocoder,
+      scale_key => 'C',
+      scale_type => 0,
+      delayfx => delayfx(),
+      modfx => modfx(),
+      eq => eq(),
+      arp => arp(),
+      kbd_oct => kbd_oct(),
+      voices => [vocoder()]
      }.
 
 % generic values generators
@@ -186,6 +208,11 @@ patch_cable() ->
     #{destination => rnd(enums:values_of(cable_dest)),
       source => rnd(enums:values_of(cable_source)),
       intensity => rrange(-63, 63)}.
+
+% vocoder patch specific generators
+
+vocoder() ->
+    #{}.
 
 % random merging of two patches
 
