@@ -213,7 +213,8 @@ patch_cable() ->
 
 vocoder() ->
     #{midi_ch => global,
-      assign_mode => rnd(enums:values_of(timbre_assign))}.
+      assign_mode => rnd(enums:values_of(timbre_assign)),
+      eg_2reset => onoff()}.
 
 % random merging of two patches
 
