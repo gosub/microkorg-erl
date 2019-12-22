@@ -220,7 +220,8 @@ vocoder() ->
       key_priority => last,
       unison_detune => rrange(0, 99),
       pitch => pitch(),
-      osc1 => osc1()}.
+      osc1 => osc1(),
+      audioin1_hpfgate => onoff()}.
 
 % random merging of two patches
 
