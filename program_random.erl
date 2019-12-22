@@ -217,7 +217,8 @@ vocoder() ->
       eg2_reset => onoff(),
       eg1_reset => onoff(),
       trigger_mode => rnd(enums:values_of(timbre_trigger)),
-     key_priority => last}.
+      key_priority => last,
+      unison_detune => rrange(0, 99)}.
 
 % random merging of two patches
 
