@@ -219,7 +219,8 @@ vocoder() ->
       trigger_mode => rnd(enums:values_of(timbre_trigger)),
       key_priority => last,
       unison_detune => rrange(0, 99),
-      pitch => pitch()}.
+      pitch => pitch(),
+      osc1 => osc1()}.
 
 % random merging of two patches
 
