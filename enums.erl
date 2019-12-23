@@ -226,7 +226,8 @@ values_of(lfo1_wave) -> {saw, squ, tri, sh};
 values_of(lfo2_wave) -> {saw, squ, sin, sh};
 values_of(lfo_syncnote) -> list_to_tuple(?LFO_SYNCNOTE);
 values_of(cable_dest) -> {pitch, osc2pitch, osc1ctrl1, noise, cutoff, amp, pan, lfo2_freq};
-values_of(cable_source) -> {eg1, eg2, lfo1, lfo2, velocity, kbd_track, pitch_bend, mod}.
+values_of(cable_source) -> {eg1, eg2, lfo1, lfo2, velocity, kbd_track, pitch_bend, mod};
+values_of(vocoder_filter_modsource) -> {aeg, lfo1, lfo2, velocity, kbd_track, pitch_bend, mod}.
 
 vocoder_filter_modsource(1) -> aeg;
 vocoder_filter_modsource(2) -> lfo1;

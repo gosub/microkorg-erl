@@ -224,7 +224,8 @@ vocoder() ->
       audioin1_hpfgate => onoff(),
       porta_time => r127(),
       mixer => vocoder_mixer(),
-      audioin1 => vocoder_audioin1()}.
+      audioin1 => vocoder_audioin1(),
+      filter => vocoder_filter()}.
 
 vocoder_mixer() ->
     #{osc1_lvl => r127(),
@@ -235,6 +236,17 @@ vocoder_audioin1() ->
     #{hpf_lvl => r127(),
       gate_sense => r127(),
       threshold => r127()}.
+
+vocoder_filter() ->
+    #{shift => rnd({0,1,2,-1,-2}),
+      cutoff => rrange(-63, 63),
+      resonance => r127(),
+      modsource => rnd(enums:values_of(vocoder_filter_modsource)),
+      intensity => rrange(-63, 63),
+      efsense => vocoder_filter_efsense(r127())}.
+
+vocoder_filter_efsense(127) -> hold;
+vocoder_filter_efsense(N) -> N.
 
 % random merging of two patches
 
