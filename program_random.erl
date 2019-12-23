@@ -222,7 +222,13 @@ vocoder() ->
       pitch => pitch(),
       osc1 => osc1(),
       audioin1_hpfgate => onoff(),
-      porta_time => r127()}.
+      porta_time => r127(),
+      mixer => vocoder_mixer()}.
+
+vocoder_mixer() ->
+    #{osc1_lvl => r127(),
+      ext1_lvl => r127(),
+      noise => r127()}.
 
 % random merging of two patches
 
