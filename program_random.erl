@@ -225,7 +225,8 @@ vocoder() ->
       porta_time => r127(),
       mixer => vocoder_mixer(),
       audioin1 => vocoder_audioin1(),
-      filter => vocoder_filter()}.
+      filter => vocoder_filter(),
+      amp => vocoder_amp()}.
 
 vocoder_mixer() ->
     #{osc1_lvl => r127(),
@@ -247,6 +248,13 @@ vocoder_filter() ->
 
 vocoder_filter_efsense(127) -> hold;
 vocoder_filter_efsense(N) -> N.
+
+vocoder_amp() ->
+    #{level => r127(),
+      direct_level => r127(),
+      distortion => onoff(),
+      velocity_sense => r127()-64,
+      key_track => rrange(-63, 63)}.
 
 % random merging of two patches
 
