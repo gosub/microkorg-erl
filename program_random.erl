@@ -226,7 +226,8 @@ vocoder() ->
       mixer => vocoder_mixer(),
       audioin1 => vocoder_audioin1(),
       filter => vocoder_filter(),
-      amp => vocoder_amp()}.
+      amp => vocoder_amp(),
+      eg2 => eg()}.
 
 vocoder_mixer() ->
     #{osc1_lvl => r127(),
