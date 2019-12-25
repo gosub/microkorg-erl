@@ -1,6 +1,7 @@
 -module(program).
 -export([to_map/1, from_map/1, read_file/1, write_file/2, write_file/1,
-	 random/0, write_random/1, write_random/0,
+	 random/0, random_vocoder/0, write_random/1, write_random/0,
+	 write_random_vocoder/1, write_random_vocoder/0,
 	 name/1, mode/1, set_name/2, merge/2]).
 
 to_map(ProgramData) ->
@@ -25,8 +26,14 @@ write_file(ProgramMap) ->
 random() ->
     program_random:generate().
 
+random_vocoder() ->
+    program_random:generate(true).
+
 write_random(SysexFile) ->
     write_file(SysexFile, random()).
+
+write_random_vocoder(SysexFile) ->
+    write_file(SysexFile, random_vocoder()).
 
 write_random() ->
     Program = random(),
@@ -34,6 +41,14 @@ write_random() ->
     Name = string:strip(binary_to_list(BinName)) ++ ".syx",
     Res = write_file(Name, Program),
     {Res, Name}.
+
+write_random_vocoder() ->
+    Program = random_vocoder(),
+    #{name := BinName} = Program,
+    Name = string:strip(binary_to_list(BinName)) ++ ".syx",
+    Res = write_file(Name, Program),
+    {Res, Name}.
+
 
 name(#{name := Name}) ->
     string:strip(binary_to_list(Name)).
