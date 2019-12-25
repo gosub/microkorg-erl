@@ -230,7 +230,8 @@ vocoder() ->
       eg2 => eg(),
       lfo1 => lfo(1),
       lfo2 => lfo(2),
-      ch_levels => [r127() || _ <- lists:seq(1,16)]}.
+      ch_levels => [r127() || _ <- lists:seq(1,16)],
+      pan_levels => [rrange(-63, 63) || _ <- lists:seq(1,16)]}.
 
 vocoder_mixer() ->
     #{osc1_lvl => r127(),
