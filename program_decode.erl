@@ -167,7 +167,7 @@ vocoder_to_map(<<MidiCh/signed-integer,
 		 _:1, KeyPriority:2, UnisonDetune:8, Pitch:4/bytes, Osc1:5/bytes,
 		 _:7, AudioIn1HPFGate:1, _:8, 0:1, PortamentoTime:7, 
 		 Mixer:3/bytes, AudioIn1:3/bytes, Filter:6/bytes,
-		 Amp:5/bytes, 0:8, 0:8, 127:8, 0:8, EG2:4/bytes,
+		 Amp:5/bytes, _EG1:4/bytes, EG2:4/bytes,
 		 LFO1:3/bytes, LFO2:3/bytes, ChLevels:16/bytes,
 		 PanLeves:16/bytes, HoldLevels:64/bytes>>)
   when UnisonDetune =< 99 ->
