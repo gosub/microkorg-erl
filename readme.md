@@ -21,10 +21,6 @@ The **program:write_random** function saves a .syx file with a random patch (try
 
 The function **program:merge** generates a child program from two parent programs, selecting each parameter at random from one of the two parents (like in genetic programs). Checks are in place so that all parameters are consistent. It could be used to alter slighly a pre-existing program, for example: **merge(A, merge(A, Random))** would result in a variant of the program A with 25% of the parameters changed.
 
-## Warning
-
-The **program** module can read and write vocoder patches, but still can't randomly generate them.
-
 ## How to receive and send .syx patch files
 
 note: these instructions are for linux, using the amidi utility
@@ -54,6 +50,5 @@ microkorg-erl is licensed under the GPL v.3
 
 ## Todo
 
-- TODO: random vocoder patch generator
 - TODO: -module(all_programs).
 - TODO: -module(microkorg).
