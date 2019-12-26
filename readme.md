@@ -2,18 +2,44 @@
 
 an erlang module collection for reading and writing microkorg patches
 
-## How to use the **program** module
+## The **program** module
 
-The **program** module has two functions for manipulating programs:
+Currently, the **program** module is the main interface to all the provided functionalities. This is an overview of how it is organized:
+
+### Reading and writing programs/patches directly to/from files:
 
 - program:read_file(SysexFile) -> ProgramMap
 - program:write_file(SysexFile, ProgramMap) -> ok
+- program:write_file(ProgramMap) -> ok
 
-And two function to generate random programs:
+the last function infers the filename from the program name
 
+### Converting binaries to program maps, and viceversa:
+
+- program:to_map(ProgramBinary) -> ProgramMap
+- program:from_map(ProgramMap) -> ProgramBinary
+
+### Generating random programs:
+
+- program:random() -> NonVocoderProgramMap
+- program:random_vocoder() -> VocoderProgramMap
 - program:write_random(SysexFile) -> ok
 - program:write_random() -> {ok, Filename}
-- program:merge(ProgramA, ProgramB) -> ProgramMap
+- program:write_random_vocoder(SysexFile) -> ok
+- program:write_random_vocoder() -> {ok, Filename}
+
+### Merging two programs randomly:
+
+- program:merge(ProgramMapA, ProgramMapB) -> ProgramMap
+
+### Auxiliary functions
+
+- program:name(ProgramMap) -> String
+- program:mode(ProgramMap) -> single | double | vocoder
+- program:set_name(ProgramMap, String) -> ProgramMap
+
+
+### Overview
 
 A program, in the microkorg documentantation, is the equivalent of a patch (like A11, A24, B12 etc). Sending a specific sysex command to the microkorg, makes it respond with the current program as sysex data. **program:read_file** transform a .syx encoded file into an explicit map (ProgramMap). The map can be re-encoded (as-is or modified) with **program:write_file**, that produces a .syx file.
 
