@@ -1,5 +1,5 @@
 -module(all_programs).
--export([read_file/1, write_file/2, random/0]).
+-export([read_file/1, write_file/2, random/0, write_random/1]).
 
 
 read_file(SysexFile) ->
@@ -17,6 +17,10 @@ random() ->
     NonVocoders = [program:random() || _ <- lists:seq(1, (128-16))],
     Vocoders = [program:random_vocoder() || _ <-lists:seq(1, 16)],
     NonVocoders ++ Vocoders.
+
+
+write_random(SysexFile) ->
+    write_file(random(), SysexFile).
 
 
 separate_programs(<<>>) ->
