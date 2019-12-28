@@ -7,5 +7,6 @@ read_file(SysexFile) ->
     to_map(GlobalData).
 
 
-to_map(GlobalData) ->
-    ok.
+to_map(<<MasterTune:8/signed-integer,
+	 Rest:199/bytes>>) ->
+    #{master_tune => MasterTune/10 + 440}.
