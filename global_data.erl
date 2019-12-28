@@ -9,6 +9,11 @@ read_file(SysexFile) ->
 
 to_map(<<MasterTune:8/signed-integer,
 	 Transpose:8/signed-integer,
-	 Rest:198/bytes>>) ->
+	 0:7, Position:1,
+	 Rest:197/bytes>>) ->
     #{master_tune => MasterTune/10 + 440,
-      transpose => Transpose}.
+      transpose => Transpose,
+      position => position(Position)}.
+
+position(0) -> postkbd;
+position(1) -> pretg.
