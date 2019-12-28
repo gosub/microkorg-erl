@@ -10,7 +10,7 @@ read_file(SysexFile) ->
 to_map(<<MasterTune:8/signed-integer,
 	 Transpose:8/signed-integer,
 	 0:7, Position:1,
-	 Rest:197/bytes>>) ->
+	 _Rest:195/bytes>>)
     #{master_tune => MasterTune/10 + 440,
       transpose => Transpose,
       position => position(Position)}.
