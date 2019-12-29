@@ -15,7 +15,8 @@ to_map(<<MasterTune:8/signed-integer,
 	 _:16, 0:6, Clock:2, 0:4, MidiCh:4,
 	 SyncCtrlNo:8/signed-integer,
 	 TimbSelCtrlNo:8/signed-integer,
-	 _Rest:188/bytes>>)
+	 _:16, Midi1CtrlNo:8,
+	 _Rest:185/bytes>>)
   when VelValue >= 1, VelValue =< 127, VelCurve =< 8,
        SyncCtrlNo >= -1, SyncCtrlNo =< 95,
        TimbSelCtrlNo >= -1, TimbSelCtrlNo =< 95 ->
@@ -29,7 +30,8 @@ to_map(<<MasterTune:8/signed-integer,
       clock => clock(Clock),
       midi_ch => MidiCh+1,
       sync_ctrl_no => ctrl_no(SyncCtrlNo),
-      timbsel_ctrl_no => ctrl_no(TimbSelCtrlNo)}.
+      timbsel_ctrl_no => ctrl_no(TimbSelCtrlNo),
+      midi1_ctrl_no => ctrl_no(Midi1CtrlNo)}.
 
 position(0) -> postkbd;
 position(1) -> pretg.
