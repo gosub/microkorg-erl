@@ -12,8 +12,8 @@ to_map(<<MasterTune:8/signed-integer,
 	 0:7, Position:1,
 	 VelValue:8, VelCurve:8,
 	 _:5, LocalCtrl:1, _:1, MemoryProtect:1,
-	 _:16, 0:6, Clock:2,
-	 _Rest:191/bytes>>)
+	 _:16, 0:6, Clock:2, 0:4, MidiCh:4,
+	 _Rest:190/bytes>>)
   when VelValue >= 1, VelValue =< 127,
        VelCurve =< 8 ->
     #{master_tune => MasterTune/10 + 440,
@@ -23,7 +23,8 @@ to_map(<<MasterTune:8/signed-integer,
       vel_curve => velcurve(VelCurve),
       local_ctrl => enums:onoff(LocalCtrl),
       memory_protect => enums:onoff(MemoryProtect),
-      clock => clock(Clock)}.
+      clock => clock(Clock),
+      midi_ch => MidiCh+1}.
 
 position(0) -> postkbd;
 position(1) -> pretg.
