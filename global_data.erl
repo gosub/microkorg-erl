@@ -34,7 +34,8 @@ to_map(<<MasterTune:8/signed-integer,
       timbsel_ctrl_no => ctrl_no(TimbSelCtrlNo),
       midi1_ctrl_no => ctrl_no(Midi1CtrlNo),
       midi2_ctrl_no => ctrl_no(Midi2CtrlNo),
-      systemex_filter => dis_ena(SystemExFilter)}.
+      systemex_filter => dis_ena(SystemExFilter),
+      note_receive => note_receive(NoteReceive)}.
 
 position(0) -> postkbd;
 position(1) -> pretg.
@@ -51,3 +52,6 @@ ctrl_no(X) -> X.
 
 dis_ena(0) -> disabled;
 dis_ena(1) -> enabled.
+
+note_receive(0) -> all;
+note_receive(X) -> X.
