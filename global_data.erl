@@ -16,7 +16,8 @@ to_map(<<MasterTune:8/signed-integer,
 	 SyncCtrlNo:8/signed-integer,
 	 TimbSelCtrlNo:8/signed-integer,
 	 _:16, Midi1CtrlNo:8, Midi2CtrlNo:8,
-	 _Rest:184/bytes>>)
+	 SystemExFilter:1, 0:5, NoteReceive:2,
+	 _Rest:183/bytes>>)
   when VelValue >= 1, VelValue =< 127, VelCurve =< 8,
        SyncCtrlNo >= -1, SyncCtrlNo =< 95,
        TimbSelCtrlNo >= -1, TimbSelCtrlNo =< 95 ->
@@ -32,7 +33,8 @@ to_map(<<MasterTune:8/signed-integer,
       sync_ctrl_no => ctrl_no(SyncCtrlNo),
       timbsel_ctrl_no => ctrl_no(TimbSelCtrlNo),
       midi1_ctrl_no => ctrl_no(Midi1CtrlNo),
-      midi2_ctrl_no => ctrl_no(Midi2CtrlNo)}.
+      midi2_ctrl_no => ctrl_no(Midi2CtrlNo),
+      systemex_filter => dis_ena(SystemExFilter)}.
 
 position(0) -> postkbd;
 position(1) -> pretg.
@@ -46,3 +48,6 @@ clock(2) -> auto.
 
 ctrl_no(-1) -> off;
 ctrl_no(X) -> X.
+
+dis_ena(0) -> disabled;
+dis_ena(1) -> enabled.
