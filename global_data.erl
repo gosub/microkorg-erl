@@ -14,9 +14,11 @@ to_map(<<MasterTune:8/signed-integer,
 	 _:5, LocalCtrl:1, _:1, MemoryProtect:1,
 	 _:16, 0:6, Clock:2, 0:4, MidiCh:4,
 	 SyncCtrlNo:8/signed-integer,
-	 _Rest:189/bytes>>)
+	 TimbSelCtrlNo:8/signed-integer,
+	 _Rest:188/bytes>>)
   when VelValue >= 1, VelValue =< 127, VelCurve =< 8,
-       SyncCtrlNo >= -1, SyncCtrlNo =< 95 ->
+       SyncCtrlNo >= -1, SyncCtrlNo =< 95,
+       TimbSelCtrlNo >= -1, TimbSelCtrlNo =< 95 ->
     #{master_tune => MasterTune/10 + 440,
       transpose => Transpose,
       position => position(Position),
@@ -26,7 +28,8 @@ to_map(<<MasterTune:8/signed-integer,
       memory_protect => enums:onoff(MemoryProtect),
       clock => clock(Clock),
       midi_ch => MidiCh+1,
-      sync_ctrl_no => sync_ctrl_no(SyncCtrlNo)}.
+      sync_ctrl_no => ctrl_no(SyncCtrlNo),
+      timbsel_ctrl_no => ctrl_no(TimbSelCtrlNo)}.
 
 position(0) -> postkbd;
 position(1) -> pretg.
@@ -38,5 +41,5 @@ clock(0) -> internal;
 clock(1) -> external;
 clock(2) -> auto.
 
-sync_ctrl_no(-1) -> off;
-sync_ctrl_no(X) -> X.
+ctrl_no(-1) -> off;
+ctrl_no(X) -> X.
