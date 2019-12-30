@@ -19,7 +19,7 @@ to_map(<<MasterTune:8/signed-integer,
 	 SystemExFilter:1, 0:5, NoteReceive:2,
 	 0:1, PBendFilter:1, 0:3, CtrlChgFilter:1, 0:1, ProgChgFilter:1,
 	 CtrlChangeNo:42/bytes, UserScale:12/bytes,
-	 _Rest:128/bytes>>)
+	 MidiInPrgChgMap:128/bytes>>)
   when VelValue >= 1, VelValue =< 127, VelCurve =< 8,
        SyncCtrlNo >= -1, SyncCtrlNo =< 95,
        TimbSelCtrlNo >= -1, TimbSelCtrlNo =< 95 ->
@@ -42,7 +42,8 @@ to_map(<<MasterTune:8/signed-integer,
       ctrlchg_filter => dis_ena(CtrlChgFilter),
       progchg_filter => dis_ena(ProgChgFilter),
       ctrlchange_no => ctrlchange_no(CtrlChangeNo),
-      user_scale => user_scale(UserScale)}.
+      user_scale => user_scale(UserScale),
+      midi_in_progchg_map => midi_in_progchg_map(MidiInPrgChgMap)}.
 
 position(0) -> postkbd;
 position(1) -> pretg.
@@ -68,3 +69,18 @@ ctrlchange_no(Data) ->
 
 user_scale(Data) ->
     [X || <<X/signed-integer>> <= Data].
+
+midi_in_progchg_map(Data) ->
+    [num2prog(B) || <<B:8>> <= Data].
+
+num2prog(N) when N < 64 ->
+    num2prog(N, "A");
+num2prog(N) ->
+    num2prog(N-64, "b").
+
+num2prog(N, L) ->
+    A = (N div 8) + 1,
+    B = (N rem 8) + 1,
+    X = A*10+B,
+    S = L ++ integer_to_list(X),
+    list_to_atom(S).
