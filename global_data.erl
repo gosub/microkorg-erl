@@ -18,8 +18,8 @@ to_map(<<MasterTune:8/signed-integer,
 	 _:16, Midi1CtrlNo:8, Midi2CtrlNo:8,
 	 SystemExFilter:1, 0:5, NoteReceive:2,
 	 0:1, PBendFilter:1, 0:3, CtrlChgFilter:1, 0:1, ProgChgFilter:1,
-	 CtrlChangeNo:42/bytes,
-	 _Rest:140/bytes>>)
+	 CtrlChangeNo:42/bytes, UserScale:12/bytes,
+	 _Rest:128/bytes>>)
   when VelValue >= 1, VelValue =< 127, VelCurve =< 8,
        SyncCtrlNo >= -1, SyncCtrlNo =< 95,
        TimbSelCtrlNo >= -1, TimbSelCtrlNo =< 95 ->
@@ -41,7 +41,8 @@ to_map(<<MasterTune:8/signed-integer,
       pbend_filter => dis_ena(PBendFilter),
       ctrlchg_filter => dis_ena(CtrlChgFilter),
       progchg_filter => dis_ena(ProgChgFilter),
-      ctrlchange_no => ctrlchange_no(CtrlChangeNo)}.
+      ctrlchange_no => ctrlchange_no(CtrlChangeNo),
+      user_scale => user_scale(UserScale)}.
 
 position(0) -> postkbd;
 position(1) -> pretg.
@@ -64,3 +65,6 @@ note_receive(X) -> X.
 
 ctrlchange_no(Data) ->
     [ctrl_no(B) || <<B:8>> <= Data].
+
+user_scale(Data) ->
+    [X || <<X/signed-integer>> <= Data].
