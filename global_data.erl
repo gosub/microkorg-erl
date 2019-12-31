@@ -46,7 +46,9 @@ to_map(<<MasterTune:8/signed-integer,
       midi_in_progchg_map => midi_in_progchg_map(MidiInPrgChgMap)}.
 
 position(0) -> postkbd;
-position(1) -> pretg.
+position(1) -> pretg;
+position(postkbd) -> 0;
+position(pretg) -> 1.
 
 velcurve(8) -> const;
 velcurve(X) -> X+1.
@@ -91,7 +93,8 @@ write_file(SysexFile, GlobalDataMap) ->
     sysex:encode_file(SysexFile, global_data_dump, GlobalDataBin).
 
 
-from_map(#{master_tune := MasterTune, transpose := Transpose}) ->
+from_map(#{master_tune := MasterTune, transpose := Transpose,
+	   position := Position}) ->
     <<(round((MasterTune-440)*10)):8/signed-integer,
-      Transpose:8/signed-integer,
-      0:(198*8)>>.
+      Transpose:8/signed-integer, 0:7, (position(Position)):1,
+      0:(197*8)>>.
