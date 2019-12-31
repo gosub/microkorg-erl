@@ -1,5 +1,5 @@
 -module(global_data).
--export([to_map/1, read_file/1]).
+-export([to_map/1, read_file/1, write_file/2]).
 
 
 read_file(SysexFile) ->
@@ -84,3 +84,12 @@ num2prog(N, L) ->
     X = A*10+B,
     S = L ++ integer_to_list(X),
     list_to_atom(S).
+
+
+write_file(SysexFile, GlobalDataMap) ->
+    GlobalDataBin = from_map(GlobalDataMap),
+    sysex:encode_file(SysexFile, global_data_dump, GlobalDataBin).
+
+
+from_map(GlobalDataMap) ->
+    <<>>.
