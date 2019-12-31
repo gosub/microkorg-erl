@@ -91,5 +91,6 @@ write_file(SysexFile, GlobalDataMap) ->
     sysex:encode_file(SysexFile, global_data_dump, GlobalDataBin).
 
 
-from_map(GlobalDataMap) ->
-    <<>>.
+from_map(#{master_tune := MasterTune}) ->
+    <<(round((MasterTune-440)*10)):8/signed-integer,
+      0:(199*8)>>.
