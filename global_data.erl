@@ -58,7 +58,10 @@ velcurve_inverse(X) -> X-1.
 
 clock(0) -> internal;
 clock(1) -> external;
-clock(2) -> auto.
+clock(2) -> auto;
+clock(internal) -> 0;
+clock(external) -> 1;
+clock(auto) -> 2.
 
 ctrl_no(-1) -> off;
 ctrl_no(X) -> X.
@@ -99,9 +102,10 @@ write_file(SysexFile, GlobalDataMap) ->
 from_map(#{master_tune := MasterTune, transpose := Transpose,
 	   position := Position, vel_value := VelValue,
 	   vel_curve := VelCurve, local_ctrl := LocalCtrl,
-	   memory_protect := MemoryProtect}) ->
+	   memory_protect := MemoryProtect, clock := Clock}) ->
     <<(round((MasterTune-440)*10)):8/signed-integer,
       Transpose:8/signed-integer, 0:7, (position(Position)):1,
       VelValue:8, (velcurve_inverse(VelCurve)):8,
       0:5, (enums:onoff(LocalCtrl)):1, 0:1, (enums:onoff(MemoryProtect)):1,
-      0:(194*8)>>.
+      0:22, (clock(Clock)):2,
+      0:(191*8)>>.
