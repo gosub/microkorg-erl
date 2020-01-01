@@ -94,7 +94,8 @@ write_file(SysexFile, GlobalDataMap) ->
 
 
 from_map(#{master_tune := MasterTune, transpose := Transpose,
-	   position := Position}) ->
+	   position := Position, vel_value := VelValue}) ->
     <<(round((MasterTune-440)*10)):8/signed-integer,
       Transpose:8/signed-integer, 0:7, (position(Position)):1,
-      0:(197*8)>>.
+      VelValue:8,
+      0:(196*8)>>.
