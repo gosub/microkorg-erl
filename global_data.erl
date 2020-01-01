@@ -53,6 +53,9 @@ position(pretg) -> 1.
 velcurve(8) -> const;
 velcurve(X) -> X+1.
 
+velcurve_inverse(const) -> 8;
+velcurve_inverse(X) -> X-1.
+
 clock(0) -> internal;
 clock(1) -> external;
 clock(2) -> auto.
@@ -94,8 +97,9 @@ write_file(SysexFile, GlobalDataMap) ->
 
 
 from_map(#{master_tune := MasterTune, transpose := Transpose,
-	   position := Position, vel_value := VelValue}) ->
+	   position := Position, vel_value := VelValue,
+	   vel_curve := VelCurve}) ->
     <<(round((MasterTune-440)*10)):8/signed-integer,
       Transpose:8/signed-integer, 0:7, (position(Position)):1,
-      VelValue:8,
-      0:(196*8)>>.
+      VelValue:8, (velcurve_inverse(VelCurve)):8,
+      0:(195*8)>>.
