@@ -106,7 +106,8 @@ from_map(#{master_tune := MasterTune, transpose := Transpose,
 	   memory_protect := MemoryProtect, clock := Clock,
 	   midi_ch := MidiCh, sync_ctrl_no := SyncCtrlNo,
 	   timbsel_ctrl_no := TimbSelCtrlNo,
-	   midi1_ctrl_no := Midi1CtrlNo}) ->
+	   midi1_ctrl_no := Midi1CtrlNo,
+	   midi2_ctrl_no := Midi2CtrlNo}) ->
     <<(round((MasterTune-440)*10)):8/signed-integer,
       Transpose:8/signed-integer, 0:7, (position(Position)):1,
       VelValue:8, (velcurve_inverse(VelCurve)):8,
@@ -114,5 +115,5 @@ from_map(#{master_tune := MasterTune, transpose := Transpose,
       0:22, (clock(Clock)):2, 0:4, (MidiCh-1):4,
       (ctrl_no(SyncCtrlNo)):8/signed-integer,
       (ctrl_no(TimbSelCtrlNo)):8/signed-integer,
-      0:16, Midi1CtrlNo:8,
-      0:(185*8)>>.
+      0:16, Midi1CtrlNo:8, Midi2CtrlNo:8,
+      0:(184*8)>>.
