@@ -73,6 +73,7 @@ dis_ena(disabled) -> 0;
 dis_ena(enabled) -> 1.
 
 note_receive(0) -> all;
+note_receive(all) -> 0;
 note_receive(X) -> X.
 
 ctrlchange_no(Data) ->
@@ -109,7 +110,9 @@ from_map(#{master_tune := MasterTune, transpose := Transpose,
 	   midi_ch := MidiCh, sync_ctrl_no := SyncCtrlNo,
 	   timbsel_ctrl_no := TimbSelCtrlNo,
 	   midi1_ctrl_no := Midi1CtrlNo,
-	   midi2_ctrl_no := Midi2CtrlNo}) ->
+	   midi2_ctrl_no := Midi2CtrlNo,
+	   systemex_filter := SystemExFilter,
+	   note_receive := NoteReceive}) ->
     <<(round((MasterTune-440)*10)):8/signed-integer,
       Transpose:8/signed-integer, 0:7, (position(Position)):1,
       VelValue:8, (velcurve_inverse(VelCurve)):8,
@@ -118,4 +121,5 @@ from_map(#{master_tune := MasterTune, transpose := Transpose,
       (ctrl_no(SyncCtrlNo)):8/signed-integer,
       (ctrl_no(TimbSelCtrlNo)):8/signed-integer,
       0:16, Midi1CtrlNo:8, Midi2CtrlNo:8,
-      0:(184*8)>>.
+      (dis_ena(SystemExFilter)):1, 0:5, (note_receive(NoteReceive)):2,
+      0:(183*8)>>.
