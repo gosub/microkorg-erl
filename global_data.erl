@@ -68,7 +68,9 @@ ctrl_no(off) -> -1;
 ctrl_no(X) -> X.
 
 dis_ena(0) -> disabled;
-dis_ena(1) -> enabled.
+dis_ena(1) -> enabled;
+dis_ena(disabled) -> 0;
+dis_ena(enabled) -> 1.
 
 note_receive(0) -> all;
 note_receive(X) -> X.
