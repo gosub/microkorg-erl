@@ -103,10 +103,11 @@ from_map(#{master_tune := MasterTune, transpose := Transpose,
 	   position := Position, vel_value := VelValue,
 	   vel_curve := VelCurve, local_ctrl := LocalCtrl,
 	   memory_protect := MemoryProtect, clock := Clock,
-	   midi_ch := MidiCh}) ->
+	   midi_ch := MidiCh, sync_ctrl_no := SyncCtrlNo}) ->
     <<(round((MasterTune-440)*10)):8/signed-integer,
       Transpose:8/signed-integer, 0:7, (position(Position)):1,
       VelValue:8, (velcurve_inverse(VelCurve)):8,
       0:5, (enums:onoff(LocalCtrl)):1, 0:1, (enums:onoff(MemoryProtect)):1,
       0:22, (clock(Clock)):2, 0:4, (MidiCh-1):4,
-      0:(190*8)>>.
+      (ctrl_no(SyncCtrlNo)):8/signed-integer,
+      0:(189*8)>>.
