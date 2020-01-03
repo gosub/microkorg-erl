@@ -112,7 +112,8 @@ from_map(#{master_tune := MasterTune, transpose := Transpose,
 	   midi1_ctrl_no := Midi1CtrlNo,
 	   midi2_ctrl_no := Midi2CtrlNo,
 	   systemex_filter := SystemExFilter,
-	   note_receive := NoteReceive}) ->
+	   note_receive := NoteReceive,
+	   pbend_filter := PBendFilter}) ->
     <<(round((MasterTune-440)*10)):8/signed-integer,
       Transpose:8/signed-integer, 0:7, (position(Position)):1,
       VelValue:8, (velcurve_inverse(VelCurve)):8,
@@ -122,4 +123,5 @@ from_map(#{master_tune := MasterTune, transpose := Transpose,
       (ctrl_no(TimbSelCtrlNo)):8/signed-integer,
       0:16, Midi1CtrlNo:8, Midi2CtrlNo:8,
       (dis_ena(SystemExFilter)):1, 0:5, (note_receive(NoteReceive)):2,
-      0:(183*8)>>.
+      0:1, (dis_ena(PBendFilter)):1,
+      0:(183*8-6)>>.
