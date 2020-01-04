@@ -95,9 +95,9 @@ num2prog(N) ->
     num2prog(N-64, "b").
 
 num2prog(N, L) ->
-    A = (N div 8) + 1,
-    B = (N rem 8) + 1,
-    X = A*10+B,
+    Tens = (N div 8) + 1,
+    Units = (N rem 8) + 1,
+    X = Tens*10+Units,
     S = L ++ integer_to_list(X),
     list_to_atom(S).
 
