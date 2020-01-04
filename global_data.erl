@@ -81,8 +81,10 @@ ctrlchange_no(Data) when is_binary(Data) ->
 ctrlchange_no(List) when is_list(List) ->
     list_to_binary(lists:map(fun(C) -> ctrl_no(C) end, List)).
 
-user_scale(Data) ->
-    [X || <<X/signed-integer>> <= Data].
+user_scale(Data) when is_binary(Data) ->
+    [X || <<X/signed-integer>> <= Data];
+user_scale(List) when is_list(List) ->
+    list_to_binary([<<X/signed-integer>> || X <- List]).
 
 midi_in_progchg_map(Data) ->
     [num2prog(B) || <<B:8>> <= Data].
@@ -118,7 +120,8 @@ from_map(#{master_tune := MasterTune, transpose := Transpose,
 	   pbend_filter := PBendFilter,
 	   ctrlchg_filter := CtrlChgFilter,
 	   progchg_filter := ProgChgFilter,
-	   ctrlchange_no := CtrlChangeNo}) ->
+	   ctrlchange_no := CtrlChangeNo,
+	   user_scale := UserScale}) ->
     <<(round((MasterTune-440)*10)):8/signed-integer,
       Transpose:8/signed-integer, 0:7, (position(Position)):1,
       VelValue:8, (velcurve_inverse(VelCurve)):8,
@@ -130,4 +133,5 @@ from_map(#{master_tune := MasterTune, transpose := Transpose,
       (dis_ena(SystemExFilter)):1, 0:5, (note_receive(NoteReceive)):2,
       0:1, (dis_ena(PBendFilter)):1, 0:3, (dis_ena(CtrlChgFilter)):1,
       0:1, (dis_ena(ProgChgFilter)):1, (ctrlchange_no(CtrlChangeNo)):42/bytes,
-      0:(140*8)>>.
+      (user_scale(UserScale)):12/bytes,
+      0:(128*8)>>.
