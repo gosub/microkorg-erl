@@ -101,6 +101,19 @@ num2prog(N, L) ->
     S = L ++ integer_to_list(X),
     list_to_atom(S).
 
+prog2num(Atom) when is_atom(Atom) ->
+    prog2num(atom_to_list(Atom));
+prog2num([$A|Numeric]=L) when is_list(L) ->
+    N = list_to_integer(Numeric),
+    prog2num(N);
+prog2num([$b|Numeric]=L) when is_list(L) ->
+    N = list_to_integer(Numeric),
+    prog2num(N) + 64;
+prog2num(N) when is_integer(N) ->
+    Octs = (N div 10) - 1,
+    Units = (N rem 10) - 1,
+    Octs*8 + Units.
+
 
 write_file(SysexFile, GlobalDataMap) ->
     GlobalDataBin = from_map(GlobalDataMap),
