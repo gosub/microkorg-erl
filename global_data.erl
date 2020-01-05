@@ -1,5 +1,5 @@
 -module(global_data).
--export([to_map/1, read_file/1, write_file/2]).
+-export([to_map/1, from_map/1, read_file/1, write_file/2]).
 
 
 read_file(SysexFile) ->
