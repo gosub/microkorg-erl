@@ -1,9 +1,12 @@
 -module(all_programs).
--export([read_file/1, write_file/2, random/0, write_random/1]).
+-export([read_file/1, write_file/2, to_map/1, random/0, write_random/1]).
 
 
 read_file(SysexFile) ->
     {program_data_dump, AllProgsData} = sysex:decode_file(SysexFile),
+    to_map(AllProgsData).
+
+to_map(AllProgsData) ->
     lists:map(fun program:to_map/1, separate_programs(AllProgsData)).
 
 
