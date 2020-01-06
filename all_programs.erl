@@ -11,10 +11,13 @@ to_map(AllProgsData) ->
 
 
 write_file(ProgramList, SysexFile) when length(ProgramList) == 128 ->
-    Binaries = lists:map(fun program:from_map/1, ProgramList),
-    Binary = list_to_binary(Binaries),
+    Binary = from_list(ProgramList),
     sysex:encode_file(SysexFile, program_data_dump, Binary).
 
+
+from_list(ProgramList) when length(ProgramList) == 128 ->
+    Binaries = lists:map(fun program:from_map/1, ProgramList),
+    list_to_binary(Binaries).
 
 random() ->
     NonVocoders = [program:random() || _ <- lists:seq(1, (128-16))],
