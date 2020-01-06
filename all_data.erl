@@ -6,5 +6,5 @@ read_file(SysexFile) ->
     to_map(AllData).
 
 to_map(<<AllProgramData:32512/bytes, GlobalData:200/bytes>>) ->
-    #{programs => all_programs:to_map(AllProgramData),
+    #{programs => all_programs:to_list(AllProgramData),
       global_data => global_data:to_map(GlobalData)}.
