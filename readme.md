@@ -47,6 +47,17 @@ The **program:write_random** function saves a .syx file with a random patch (try
 
 The function **program:merge** generates a child program from two parent programs, selecting each parameter at random from one of the two parents (like in genetic programs). Checks are in place so that all parameters are consistent. It could be used to alter slighly a pre-existing program, for example: **merge(A, merge(A, Random))** would result in a variant of the program A with 25% of the parameters changed.
 
+## The other modules
+
+There are different possible sysex dump on the microkorg, other than the current program. There is a module for each:
+
+- all_programs: reading and writing all the 128 programs at once
+- global_data: global synth parameters, common to all the patches
+- all_data: the complete memory dump, consisting of all_programs and global_data
+
+All these modules have a **read_file/1** and a **write_file/2** function.
+The **all_programs** module has a **random/0** function that creates 128 random patches, including vocoders at the end.
+
 ## How to receive and send .syx patch files
 
 note: these instructions are for linux, using the amidi utility
